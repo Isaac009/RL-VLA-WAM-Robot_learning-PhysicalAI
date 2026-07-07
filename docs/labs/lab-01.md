@@ -60,3 +60,28 @@ python examples/week-01/02_baseline_policy.py
 ```
 
 This prepares the next lab, where we add tabular Q-learning.
+
+## Reading the Results (Lesson 1.3)
+
+Run the comparison and learn to read the numbers:
+
+```bash
+python examples/week-01/02_baseline_policy.py
+```
+
+Tasks:
+
+1. Record the average return and success rate for both policies.
+2. The seed-7 rollout in checkpoint 1 returned `-0.20`, but the random
+   policy's average return over 100 episodes is positive. Explain the
+   difference.
+3. Explain why `0.97` is the maximum possible return in this environment.
+4. Predict what happens to each policy's metrics with `max_steps=5`, then
+   change it in `env.py` and check your prediction.
+5. Describe a policy that would score 100% success rate but a much lower
+   average return than "always right." What does that say about relying on
+   success rate alone?
+
+Limitation note: both metrics are averages over one fixed environment. They
+say nothing about how either policy would do if the goal moved — which is
+exactly the weakness Week 02 starts to address.
