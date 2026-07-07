@@ -21,6 +21,10 @@ Reinforcement learning starts with an interaction loop:
 Before adding neural networks, simulators, or foundation models, the loop must
 be inspectable.
 
+## Visual Artifact
+
+![MDP interaction loop](../assets/images/week1_mdp_loop.svg)
+
 ## Mini Example
 
 In `getting_started.py`, the state is the agent position in a 1D world. The

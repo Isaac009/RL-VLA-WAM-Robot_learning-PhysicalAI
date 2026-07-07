@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Policy Gradient Animation v0 Placeholder</title>
+<style>
+  :root {
+    --action: #f97316;
+    --reward: #16a34a;
+    --error: #dc2626;
+    --baseline: #4b5563;
+    --policy: #0d9488;
+    --muted: #f3f4f6;
+    --ink: #1f2937;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    color: var(--ink);
+    background: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  main {
+    width: min(640px, 100%);
+    text-align: center;
+  }
+
+  h1 {
+    color: var(--baseline);
+    font-size: clamp(22px, 4vw, 30px);
+  }
+
+  .note {
+    color: var(--error);
+    font-weight: 800;
+  }
+
+  .bars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: end;
+    gap: 16px;
+    min-height: 180px;
+    margin: 24px auto;
+    padding: 24px;
+    border-radius: 8px;
+    background: var(--muted);
+  }
+
+  .bar {
+    display: grid;
+    align-items: end;
+    min-height: 120px;
+    border-radius: 6px 6px 0 0;
+    color: white;
+    font-weight: 800;
+  }
+
+  .low { height: 44px; background: var(--baseline); }
+  .chosen { height: 112px; background: var(--policy); }
+  .reward { color: var(--reward); font-weight: 800; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+<main aria-labelledby="title">
+  <h1 id="title">Policy Gradient v0 Placeholder</h1>
+  <p class="note">TODO: Animate action probability shifting after a high-reward action.</p>
+  <div class="bars" aria-label="Placeholder action probability bars">
+    <div class="bar low">a1</div>
+    <div class="bar chosen">a2</div>
+    <div class="bar low">a3</div>
+  </div>
+  <p class="reward">High reward should increase the chosen action probability.</p>
+</main>
+</body>
+</html>

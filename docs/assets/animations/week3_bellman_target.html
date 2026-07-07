@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bellman Target Animation</title>
+<style>
+  :root {
+    --state: #2563eb;
+    --action: #f97316;
+    --reward: #16a34a;
+    --value: #9333ea;
+    --error: #dc2626;
+    --baseline: #4b5563;
+    --policy: #0d9488;
+    --surface: #ffffff;
+    --muted: #f3f4f6;
+    --ink: #1f2937;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: var(--surface);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  main {
+    width: min(920px, 100%);
+  }
+
+  h1 {
+    margin: 0 0 8px;
+    color: var(--baseline);
+    font-size: clamp(22px, 4vw, 32px);
+    line-height: 1.15;
+    text-align: center;
+  }
+
+  .subtitle {
+    margin: 0 auto 24px;
+    max-width: 760px;
+    color: var(--baseline);
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .stage {
+    position: relative;
+    min-height: 420px;
+    border: 2px solid var(--muted);
+    border-radius: 12px;
+    overflow: hidden;
+    background:
+      linear-gradient(90deg, transparent 0 49%, var(--muted) 49% 51%, transparent 51%),
+      var(--surface);
+  }
+
+  .node {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    min-width: 120px;
+    min-height: 56px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 800;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(31, 41, 55, 0.14);
+  }
+
+  .reward { background: var(--reward); left: 7%; top: 15%; }
+  .bootstrap { background: var(--value); left: 7%; top: 42%; }
+  .prediction { background: var(--value); right: 8%; bottom: 16%; }
+  .target { background: var(--policy); left: 40%; top: 28%; opacity: 0; transform: scale(0.92); }
+  .loss { background: var(--error); right: 8%; top: 30%; opacity: 0; transform: scale(0.92); }
+
+  .formula {
+    position: absolute;
+    left: 50%;
+    bottom: 8%;
+    transform: translateX(-50%);
+    width: min(680px, 92%);
+    padding: 14px 16px;
+    border-radius: 8px;
+    background: var(--muted);
+    color: var(--baseline);
+    font-family: "Courier New", Courier, monospace;
+    font-size: clamp(15px, 3vw, 22px);
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .particle {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    opacity: 0;
+  }
+
+  .status {
+    min-height: 28px;
+    margin: 16px 0 0;
+    color: var(--baseline);
+    text-align: center;
+    font-weight: 700;
+  }
+
+  @media (max-width: 680px) {
+    .stage {
+      min-height: 520px;
+    }
+
+    .reward,
+    .bootstrap {
+      left: 5%;
+    }
+
+    .target {
+      left: 36%;
+    }
+
+    .prediction,
+    .loss {
+      right: 5%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .target,
+    .loss {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+</head>
+<body>
+<main aria-labelledby="title">
+  <h1 id="title">Bellman Target Becomes a Loss</h1>
+  <p class="subtitle">
+    DQN predicts Q(s, a), builds a bootstrapped target from reward plus next-state value,
+    then minimizes the squared error between them.
+  </p>
+
+  <section class="stage" id="stage" aria-label="Bellman target animation">
+    <div class="node reward" id="reward">Reward<br>r</div>
+    <div class="node bootstrap" id="bootstrap">Next value<br>gamma max Q(s', a')</div>
+    <div class="node target" id="target">Target<br>y</div>
+    <div class="node prediction" id="prediction">Prediction<br>Q(s, a)</div>
+    <div class="node loss" id="loss">Loss<br>(y - Q)^2</div>
+    <div class="formula">y = r + gamma max_a Q_target(s', a)</div>
+  </section>
+
+  <p class="status" id="status" aria-live="polite">Build the target, compare prediction, update the network.</p>
+</main>
+
+<script>
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const stage = document.getElementById("stage");
+  const target = document.getElementById("target");
+  const loss = document.getElementById("loss");
+  const status = document.getElementById("status");
+
+  function particle(color, start, end) {
+    const dot = document.createElement("div");
+    dot.className = "particle";
+    dot.style.background = color;
+    dot.style.left = `${start.x}px`;
+    dot.style.top = `${start.y}px`;
+    stage.appendChild(dot);
+
+    dot.animate([
+      { opacity: 0, transform: "translate(0, 0)" },
+      { opacity: 1, transform: `translate(${(end.x - start.x) * 0.55}px, ${(end.y - start.y) * 0.55}px)` },
+      { opacity: 0, transform: `translate(${end.x - start.x}px, ${end.y - start.y}px)` }
+    ], {
+      duration: 900,
+      easing: "ease-in-out"
+    }).onfinish = () => dot.remove();
+  }
+
+  function centerOf(id) {
+    const box = document.getElementById(id).getBoundingClientRect();
+    const stageBox = stage.getBoundingClientRect();
+    return {
+      x: box.left - stageBox.left + box.width / 2,
+      y: box.top - stageBox.top + box.height / 2
+    };
+  }
+
+  function show(node) {
+    node.style.opacity = 1;
+    node.style.transform = "scale(1)";
+  }
+
+  function hide(node) {
+    node.style.opacity = 0;
+    node.style.transform = "scale(0.92)";
+  }
+
+  function runSequence() {
+    hide(target);
+    hide(loss);
+    status.textContent = "Step 1: reward and next-state value form the Bellman target.";
+
+    window.setTimeout(() => {
+      particle("#16a34a", centerOf("reward"), centerOf("target"));
+      particle("#9333ea", centerOf("bootstrap"), centerOf("target"));
+    }, 350);
+
+    window.setTimeout(() => {
+      show(target);
+      status.textContent = "Step 2: the target y is a number the network should move toward.";
+    }, 1200);
+
+    window.setTimeout(() => {
+      status.textContent = "Step 3: compare target y with current prediction Q(s, a).";
+      particle("#0d9488", centerOf("target"), centerOf("loss"));
+      particle("#9333ea", centerOf("prediction"), centerOf("loss"));
+    }, 2500);
+
+    window.setTimeout(() => {
+      show(loss);
+      status.textContent = "Step 4: minimize squared Bellman error and update the Q-network.";
+    }, 3400);
+
+    window.setTimeout(runSequence, 5600);
+  }
+
+  if (reducedMotion) {
+    show(target);
+    show(loss);
+    status.textContent = "Reduced motion: Bellman target and loss are shown without animation.";
+  } else {
+    runSequence();
+  }
+</script>
+</body>
+</html>

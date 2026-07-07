@@ -17,16 +17,16 @@ week is dense enough to be useful but small enough to complete.
 
 | Week | Theme | Core question | Build artifact | Visual artifact |
 | --- | --- | --- | --- | --- |
-| 1 | MDPs and baselines | What exactly is the agent interacting with? | Tiny 1D environment and random rollout | MDP loop diagram |
-| 2 | Tabular Q-learning | How can experience become a table of action values? | Q-table learner for LineWorld | Q-table heatmap over training |
-| 3 | Bellman error and DQN | How do we replace a table with a neural network? | PyTorch DQN on a simple control task | Bellman target animation |
-| 4 | Replay and target networks | Why does naive deep RL become unstable? | Replay buffer and target network ablation | Replay buffer sampling animation |
-| 5 | Policy gradients | How can a policy improve actions directly? | REINFORCE or actor-only baseline | Probability-shift animation |
-| 6 | Actor-critic and advantage | How do we reduce policy-gradient noise? | Simple actor-critic agent | Actor/critic two-panel diagram |
-| 7 | PPO and SAC | What do practical continuous-control agents optimize? | PPO or SAC baseline with logs | PPO clipping graph |
-| 8 | Robot simulation | How does RL change when actions move a robot? | Reaching or manipulation environment | Robot reaching state/action diagram |
-| 9 | Imitation learning and VLAs | What changes when actions are learned from demonstrations? | Dataset inspection and behavior cloning | Observation-language-action flow |
-| 10 | WAMs and final project | Can world prediction improve action selection? | Final project with baseline and limitation note | WAM rollout/imagination storyboard |
+| 1 | MDPs and baselines | What exactly is the agent interacting with? | Tiny 1D environment and random rollout | [MDP loop diagram](assets/images/week1_mdp_loop.svg) |
+| 2 | Tabular Q-learning | How can experience become a table of action values? | Q-table learner for LineWorld | [Q-table heatmap](assets/animations/week2_q_table.html) |
+| 3 | Bellman error and DQN | How do we replace a table with a neural network? | PyTorch DQN on a simple control task | [Bellman target animation](assets/animations/week3_bellman_target.html) |
+| 4 | Replay and target networks | Why does naive deep RL become unstable? | Replay buffer and target network ablation | [Replay buffer placeholder](assets/animations/week4_replay_buffer.html) |
+| 5 | Policy gradients | How can a policy improve actions directly? | REINFORCE or actor-only baseline | [Policy gradient placeholder](assets/animations/week5_policy_gradient.html) |
+| 6 | Actor-critic and advantage | How do we reduce policy-gradient noise? | Simple actor-critic agent | [Actor/critic placeholder](assets/images/week6_actor_critic.svg) |
+| 7 | PPO and SAC | What do practical continuous-control agents optimize? | PPO or SAC baseline with logs | [PPO clipping placeholder](assets/images/week7_ppo_clip.svg) |
+| 8 | Robot simulation | How does RL change when actions move a robot? | Reaching or manipulation environment | [Robot reaching placeholder](assets/images/week8_robot_mdp.svg) |
+| 9 | Imitation learning and VLAs | What changes when actions are learned from demonstrations? | Dataset inspection and behavior cloning | [VLA flow placeholder](assets/images/week9_vla_flow.svg) |
+| 10 | WAMs and final project | Can world prediction improve action selection? | Final project with baseline and limitation note | [WAM storyboard placeholder](assets/images/week10_wam_storyboard.svg) |
 
 ## Weekly Page Template
 

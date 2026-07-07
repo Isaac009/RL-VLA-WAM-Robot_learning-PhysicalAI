@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Q-Table Update Animation</title>
+<style>
+  :root {
+    --state: #2563eb;
+    --action: #f97316;
+    --reward: #16a34a;
+    --value: #9333ea;
+    --error: #dc2626;
+    --baseline: #4b5563;
+    --policy: #0d9488;
+    --surface: #ffffff;
+    --muted: #f3f4f6;
+    --ink: #1f2937;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: var(--surface);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  main {
+    width: min(880px, 100%);
+  }
+
+  h1 {
+    margin: 0 0 8px;
+    color: var(--baseline);
+    font-size: clamp(22px, 4vw, 32px);
+    line-height: 1.15;
+    text-align: center;
+  }
+
+  .subtitle {
+    margin: 0 auto 24px;
+    max-width: 720px;
+    color: var(--baseline);
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .world {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(44px, 1fr));
+    gap: 8px;
+    margin: 0 auto 24px;
+    max-width: 560px;
+  }
+
+  .slot {
+    min-height: 52px;
+    border: 2px solid var(--state);
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    color: var(--state);
+    font-weight: 700;
+  }
+
+  .slot.agent {
+    background: var(--state);
+    color: white;
+  }
+
+  .slot.goal {
+    border-color: var(--reward);
+    color: var(--reward);
+  }
+
+  .slot.agent.goal {
+    background: var(--reward);
+    color: white;
+  }
+
+  .q-table {
+    display: grid;
+    grid-template-columns: minmax(72px, 0.8fr) repeat(2, minmax(90px, 1fr));
+    gap: 8px;
+    max-width: 560px;
+    margin: 0 auto 20px;
+  }
+
+  .header,
+  .row-label,
+  .cell {
+    min-height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    font-weight: 700;
+  }
+
+  .header,
+  .row-label {
+    color: var(--baseline);
+    background: var(--muted);
+  }
+
+  .header.left,
+  .header.right {
+    color: white;
+    background: var(--action);
+  }
+
+  .cell {
+    color: var(--baseline);
+    background: var(--muted);
+    border: 2px solid transparent;
+    transition: background 360ms ease, color 360ms ease, transform 360ms ease, border-color 360ms ease;
+  }
+
+  .cell.active {
+    border-color: var(--action);
+    transform: scale(1.05);
+  }
+
+  .status {
+    min-height: 32px;
+    margin: 0 auto 16px;
+    max-width: 720px;
+    color: var(--baseline);
+    text-align: center;
+    font-weight: 700;
+  }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    color: var(--baseline);
+    font-size: 14px;
+  }
+
+  .key {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .swatch {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cell {
+      transition: none;
+    }
+  }
+</style>
+</head>
+<body>
+<main aria-labelledby="title">
+  <h1 id="title">Q-Table Learns the Right Move</h1>
+  <p class="subtitle">
+    One transition updates one state-action value. In this tiny LineWorld,
+    moving right becomes more valuable near the goal.
+  </p>
+
+  <section class="world" aria-label="LineWorld states from start to goal" id="world"></section>
+
+  <section class="q-table" aria-label="Q-table with left and right actions">
+    <div class="header"></div>
+    <div class="header left">Left</div>
+    <div class="header right">Right</div>
+
+    <div class="row-label">s=0</div>
+    <div class="cell" id="q-0-0">0.00</div>
+    <div class="cell" id="q-0-1">0.00</div>
+
+    <div class="row-label">s=1</div>
+    <div class="cell" id="q-1-0">0.00</div>
+    <div class="cell" id="q-1-1">0.00</div>
+
+    <div class="row-label">s=2</div>
+    <div class="cell" id="q-2-0">0.00</div>
+    <div class="cell" id="q-2-1">0.00</div>
+
+    <div class="row-label">s=3</div>
+    <div class="cell" id="q-3-0">0.00</div>
+    <div class="cell" id="q-3-1">0.00</div>
+
+    <div class="row-label">s=4</div>
+    <div class="cell" id="q-4-0">0.00</div>
+    <div class="cell" id="q-4-1">Goal</div>
+  </section>
+
+  <p class="status" id="status" aria-live="polite">Starting from an empty Q-table.</p>
+
+  <div class="legend" aria-label="Color legend">
+    <span class="key"><span class="swatch" style="background: var(--state);"></span> State</span>
+    <span class="key"><span class="swatch" style="background: var(--action);"></span> Updated action</span>
+    <span class="key"><span class="swatch" style="background: var(--value);"></span> Value estimate</span>
+    <span class="key"><span class="swatch" style="background: var(--reward);"></span> Goal reward</span>
+  </div>
+</main>
+
+<script>
+  const LEFT = 0;
+  const RIGHT = 1;
+  const actionNames = ["left", "right"];
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const qValues = [
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0]
+  ];
+
+  const updates = [
+    { state: 3, action: RIGHT, value: 1.00, agent: 3, note: "Near the goal, right earns the goal reward." },
+    { state: 2, action: RIGHT, value: 0.79, agent: 2, note: "Value backs up one step from the goal." },
+    { state: 1, action: RIGHT, value: 0.61, agent: 1, note: "The useful action becomes visible earlier." },
+    { state: 0, action: RIGHT, value: 0.45, agent: 0, note: "The start state now prefers moving right." },
+    { state: 1, action: LEFT, value: 0.32, agent: 1, note: "Left can have value, but less than right here." },
+    { state: 2, action: RIGHT, value: 0.88, agent: 2, note: "More experience sharpens the estimate." }
+  ];
+
+  const world = document.getElementById("world");
+  const status = document.getElementById("status");
+
+  function renderWorld(agentPosition) {
+    world.innerHTML = "";
+    for (let i = 0; i < 5; i++) {
+      const slot = document.createElement("div");
+      slot.className = "slot";
+      if (i === agentPosition) slot.classList.add("agent");
+      if (i === 4) slot.classList.add("goal");
+      slot.textContent = i === agentPosition ? "A" : i === 4 ? "G" : `s${i}`;
+      world.appendChild(slot);
+    }
+  }
+
+  function valueColor(value) {
+    const p = Math.min(Math.max(value, 0), 1);
+    const start = [243, 244, 246];
+    const end = [147, 51, 234];
+    const rgb = start.map((channel, index) => Math.round(channel + p * (end[index] - channel)));
+    return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+  }
+
+  function paintCell(state, action) {
+    const value = qValues[state][action];
+    const cell = document.getElementById(`q-${state}-${action}`);
+    cell.textContent = value.toFixed(2);
+    cell.style.background = valueColor(value);
+    cell.style.color = value > 0.55 ? "white" : "var(--baseline)";
+  }
+
+  function clearHighlights() {
+    document.querySelectorAll(".cell").forEach((cell) => cell.classList.remove("active"));
+  }
+
+  function applyUpdate(update) {
+    clearHighlights();
+    renderWorld(update.agent);
+
+    qValues[update.state][update.action] = update.value;
+    const cell = document.getElementById(`q-${update.state}-${update.action}`);
+    cell.classList.add("active");
+    paintCell(update.state, update.action);
+
+    status.textContent = `Update Q(s=${update.state}, ${actionNames[update.action]}) to ${update.value.toFixed(2)}. ${update.note}`;
+  }
+
+  function renderFinalState() {
+    updates.forEach((update) => {
+      qValues[update.state][update.action] = update.value;
+      paintCell(update.state, update.action);
+    });
+    renderWorld(0);
+    status.textContent = "Reduced motion: final learned values shown. Right is strongest along the path to the goal.";
+  }
+
+  function runLoop(step = 0) {
+    applyUpdate(updates[step]);
+    const next = (step + 1) % updates.length;
+    window.setTimeout(() => runLoop(next), 1600);
+  }
+
+  renderWorld(0);
+  if (reducedMotion) {
+    renderFinalState();
+  } else {
+    window.setTimeout(() => runLoop(0), 800);
+  }
+</script>
+</body>
+</html>

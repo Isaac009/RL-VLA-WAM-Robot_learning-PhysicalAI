@@ -23,6 +23,7 @@ nav:
   - Labs:
       - Lab 01 - Inspect a Tiny MDP: labs/lab-01.md
   - Artifact Generator Brief: artifact-generator-brief.md
+  - Course Assets: assets/README.md
   - WAM Research Notes: wam-research-notes.md
   - Resources: resources.md
   - Contribute: contribute.md

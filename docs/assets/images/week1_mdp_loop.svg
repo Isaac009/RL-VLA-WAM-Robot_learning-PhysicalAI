@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%" role="img" aria-labelledby="week1-title week1-desc">
+  <title id="week1-title">MDP Interaction Loop</title>
+  <desc id="week1-desc">Diagram showing the reinforcement learning interaction loop. The agent observes state, chooses action, and receives reward plus next state from the environment before the loop repeats.</desc>
+
+  <style>
+    .node-text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 24px; font-weight: bold; fill: #ffffff; text-anchor: middle; dominant-baseline: middle; }
+    .label-text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 18px; font-weight: bold; text-anchor: middle; dominant-baseline: middle; }
+    .arrow { fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    .arrow-head { fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+
+  <!-- Background for contrast if needed, keeping it clean and transparent -->
+  <rect width="100%" height="100%" fill="#ffffff" rx="12"/>
+
+  <!-- Definitions for Arrowheads -->
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb" />
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f97316" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#16a34a" />
+    </marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#4b5563" />
+    </marker>
+  </defs>
+
+  <!-- Agent Node (Top) -->
+  <rect x="300" y="80" width="200" height="80" rx="12" fill="#4b5563" />
+  <text x="400" y="120" class="node-text">Agent</text>
+
+  <!-- Environment Node (Bottom) -->
+  <rect x="300" y="340" width="200" height="80" rx="12" fill="#4b5563" />
+  <text x="400" y="380" class="node-text">Environment</text>
+
+  <!-- Action Arrow (Right Side, Top to Bottom) -->
+  <path d="M 520 120 C 650 120, 650 380, 520 380" class="arrow" stroke="#f97316" marker-end="url(#arrow-orange)" />
+  
+  <!-- Action Label -->
+  <rect x="580" y="235" width="90" height="30" rx="4" fill="#ffffff" />
+  <text x="625" y="250" class="label-text" fill="#f97316">Action (a)</text>
+
+  <!-- State & Reward Arrow (Left Side, Bottom to Top) -->
+  <path d="M 280 380 C 150 380, 150 120, 280 120" class="arrow" stroke="#2563eb" marker-end="url(#arrow-blue)" />
+
+  <!-- State Label -->
+  <rect x="110" y="215" width="120" height="30" rx="4" fill="#ffffff" />
+  <text x="170" y="230" class="label-text" fill="#2563eb">State (s')</text>
+
+  <!-- Reward Label -->
+  <rect x="110" y="255" width="120" height="30" rx="4" fill="#ffffff" />
+  <text x="170" y="270" class="label-text" fill="#16a34a">Reward (r)</text>
+
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%" role="img" aria-labelledby="week7-title week7-desc">
+  <title id="week7-title">PPO Clip v0 Draft</title>
+  <desc id="week7-desc">Placeholder diagram for PPO clipping. A later version should plot unclipped and clipped surrogate objectives.</desc>
+  <rect width="100%" height="100%" fill="#f3f4f6" />
+  <text x="400" y="200" font-family="sans-serif" font-size="24" fill="#dc2626" text-anchor="middle">TODO: Show the unclipped and clipped objective curves</text>
+</svg>

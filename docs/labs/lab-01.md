@@ -4,6 +4,12 @@
 
 Run a tiny environment and identify each part of the RL interaction loop.
 
+## Visual Reference
+
+Use the [MDP interaction loop diagram](../assets/images/week1_mdp_loop.svg) as
+the map for this lab: observe state, choose action, receive reward and next
+state, then repeat.
+
 ## Setup
 
 This lab uses only the Python standard library.
