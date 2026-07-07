@@ -18,8 +18,11 @@ python getting_started.py
 Then read:
 
 - [Syllabus](syllabus.md)
+- [RL Instructor Commitment](instructor-rl.md)
+- [Lesson Plan](lesson-plan.md)
 - [Week 01 - MDPs and Baselines](lectures/week-01.md)
 - [Lab 01 - Inspect a Tiny MDP](labs/lab-01.md)
+- [Artifact Generator Brief](artifact-generator-brief.md)
 - [Resources](resources.md)
 
 ## What Makes This Course Different
@@ -46,3 +49,10 @@ Then read:
 Good course material should help learners reproduce an idea, not merely admire
 it. Contributions should include the learning goal, runnable code or a concrete
 exercise, expected output, and a short note on limitations.
+
+## Teaching Standard
+
+The RL track is taught with a consistent rhythm: concept, math core, code lens,
+baseline, metric, debugging checklist, robotics bridge, and limitation note.
+That rhythm keeps the course disciplined while leaving room for playful visual
+explainers and small challenges.

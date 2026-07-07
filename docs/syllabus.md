@@ -38,6 +38,23 @@ By the end of the course, learners should be able to:
 | 9 | World Action Models | World-model supervision and control interface |
 | 10 | Final project | Reproducible robot-learning mini-project |
 
+## Lesson Format
+
+Each week follows a consistent teaching pattern:
+
+- Hook: a concrete puzzle, failure case, or robot-learning question.
+- Concept: the idea in plain language.
+- Math core: the minimal equation or objective.
+- Code lens: the exact implementation pattern.
+- Lab: runnable code with expected output.
+- Baseline: random, heuristic, or previous method.
+- Metric: what is measured and why.
+- Failure mode: the most likely thing to debug.
+- Robotics bridge: how the idea appears in robot learning.
+- Limitation note: what the result does not prove.
+
+See [Lesson Plan](lesson-plan.md) for the full instructor plan.
+
 ## Evaluation Philosophy
 
 The course uses comparison rather than isolated demos.

@@ -16,10 +16,13 @@ theme:
 nav:
   - Home: index.md
   - Syllabus: syllabus.md
+  - RL Instructor: instructor-rl.md
+  - Lesson Plan: lesson-plan.md
   - Lectures:
       - Week 01 - MDPs and Baselines: lectures/week-01.md
   - Labs:
       - Lab 01 - Inspect a Tiny MDP: labs/lab-01.md
+  - Artifact Generator Brief: artifact-generator-brief.md
   - WAM Research Notes: wam-research-notes.md
   - Resources: resources.md
   - Contribute: contribute.md

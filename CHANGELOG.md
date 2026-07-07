@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add RL instructor commitment, lesson plan, and artifact generator brief.
 - Add MkDocs course-site scaffold.
 - Add community-oriented syllabus, lecture, lab, resource guide, contribution
   guide, and WAM research notes.
