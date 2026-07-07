@@ -13,6 +13,7 @@ This lab uses only the Python standard library.
 ```bash
 python examples/week-02/01_q_table_intro.py
 python examples/week-02/02_q_learning_update.py
+python examples/week-02/03_train_q_learning.py
 ```
 
 ## Tasks
@@ -27,6 +28,12 @@ python examples/week-02/02_q_learning_update.py
 8. Recompute the second update by hand.
 9. Explain why `Q[2][right]` increases even though the immediate reward is
    `-0.01`.
+10. Run checkpoint 3.
+11. Record the learned Q-table.
+12. Compare random, always-right, and Q-learning by average return and success
+    rate.
+13. Explain why matching the always-right baseline is a success here, but not a
+    broad claim about all environments.
 
 ## Expected Observation
 
@@ -45,6 +52,15 @@ Q[3][right] = 0.50
 Q[2][right] = 0.22
 ```
 
+Checkpoint 3 trains over many episodes and evaluates policies:
+
+```text
+policy          avg return  success rate
+random                0.52          65%
+always right          0.97         100%
+q-learning            0.97         100%
+```
+
 ## Baseline Connection
 
 Week 01 showed that the hand-written "always right" policy gets the best score
@@ -53,14 +69,19 @@ starts learning action values from transitions.
 
 ## Metric
 
-For this lab, the metric is not success rate yet. The check is arithmetic:
+For checkpoints 1 and 2, the metric is arithmetic:
 
 ```text
 Did the table cell move toward the Bellman target?
 ```
 
-Full policy evaluation returns in the next checkpoint, where we train across
-many episodes.
+For checkpoint 3, the metrics return from Week 01:
+
+- average return
+- success rate
+
+The new comparison asks whether the learned greedy policy can match the simple
+hand-written heuristic.
 
 ## Reflection Questions
 
@@ -70,6 +91,9 @@ many episodes.
 - What would go wrong if a timeout were treated like a terminal goal state?
 - Why is inspecting the table useful before training an agent for many
   episodes?
+- Why does checkpoint 3 evaluate the greedy policy instead of the exploratory
+  epsilon-greedy behavior?
+- What does Q-learning discover that the always-right heuristic already knew?
 
 ## Extension
 
@@ -85,6 +109,7 @@ Then run the script and compare.
 
 ## Limitation Note
 
-The two updates in this lab are hand-picked. A real learning agent must explore
-the environment, collect transitions, and update the table many times. That is
-the next step.
+This lab still uses a tiny deterministic world. Q-learning matching the
+always-right heuristic is a good local result, not a general robotics result.
+Week 03 starts moving toward function approximation, where a table is no
+longer enough.

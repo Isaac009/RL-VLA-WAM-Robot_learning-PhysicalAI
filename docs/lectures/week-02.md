@@ -246,6 +246,7 @@ Run:
 ```bash
 python examples/week-02/01_q_table_intro.py
 python examples/week-02/02_q_learning_update.py
+python examples/week-02/03_train_q_learning.py
 ```
 
 The Week 02 environment lives in `examples/week-02/env.py`. It is almost the
@@ -292,6 +293,51 @@ already learned at state 3.
 
 That backward spread of value is the little engine inside Q-learning.
 
+Checkpoint 3:
+
+```text
+python examples/week-02/03_train_q_learning.py
+```
+
+This repeats the same update over 200 episodes using epsilon-greedy
+exploration:
+
+```text
+with probability epsilon = 0.2: explore randomly
+otherwise: choose the action with the highest current Q-value
+```
+
+After training, the learned Q-table prefers `right` in every non-terminal
+state:
+
+```text
+state 0: left= 0.62  right= 0.70  best=right
+state 1: left= 0.62  right= 0.79  best=right
+state 2: left= 0.70  right= 0.89  best=right
+state 3: left= 0.79  right= 1.00  best=right
+state 4: terminal state (no action chosen after goal)
+```
+
+Then it evaluates three policies:
+
+```text
+policy          avg return  success rate
+random                0.52          65%
+always right          0.97         100%
+q-learning            0.97         100%
+```
+
+This is the Week 02 result:
+
+```text
+Q-learning learned the same behavior as the hand-written heuristic.
+```
+
+Keep the claim narrow. It learned the useful policy in this tiny deterministic
+LineWorld. That does not prove Q-learning is generally superior to simple
+rules; it proves the table update plus exploration can discover this rule from
+experience.
+
 ## Common Failure Modes
 
 - Updating the wrong table cell.
@@ -300,6 +346,8 @@ That backward spread of value is the little engine inside Q-learning.
   death.
 - Looking only at final policy behavior instead of inspecting the Q-values.
 - Letting tie-breaking hide the fact that an untrained table knows nothing.
+- Evaluating only the training episodes, where exploration noise is still
+  present, instead of evaluating the learned greedy policy.
 
 ## Bridge to Robotics
 

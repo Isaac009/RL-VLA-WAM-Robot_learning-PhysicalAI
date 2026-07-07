@@ -50,6 +50,14 @@ Q(s, a) <- Q(s, a) + alpha * (target - Q(s, a))
 
 13. Why is checkpoint 2 not enough to claim that we have trained an agent?
 
+14. In checkpoint 3, why do we use epsilon-greedy behavior during training?
+
+15. Why do we evaluate the greedy policy after training instead of evaluating
+    the exploratory training behavior directly?
+
+16. The trained Q-learning policy matches the always-right heuristic in
+    LineWorld. What exactly can we claim, and what should we not claim?
+
 ??? success "Answer Key"
     1. It stores an estimate of the return expected after taking an action in
        a state and then acting well afterwards.
@@ -84,3 +92,17 @@ Q(s, a) <- Q(s, a) + alpha * (target - Q(s, a))
 
     13. The transitions were hand-picked. Training requires exploration,
         repeated updates, and evaluation against baselines.
+
+    14. Epsilon-greedy behavior lets the agent sometimes try actions that do
+        not currently look best, so it can collect experience and avoid being
+        trapped by early guesses.
+
+    15. During training, exploration intentionally injects random actions.
+        Evaluation asks what the learned table recommends after training, so
+        the greedy policy is the cleaner measurement.
+
+    16. We can claim that tabular Q-learning learned the optimal right-moving
+        behavior in this tiny deterministic LineWorld under the given settings.
+        We should not claim that Q-learning is generally better than
+        hand-written rules or that it will scale directly to complex robot
+        tasks.

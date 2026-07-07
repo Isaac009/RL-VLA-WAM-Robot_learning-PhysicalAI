@@ -9,13 +9,14 @@ from experience, instead of being told? Standard library only (Python 3.10+).
 | `env.py` | LineWorld, adapted from Week 01: `done` is now split into `terminated` / `truncated`, and `reset()` takes a start position. |
 | `01_q_table_intro.py` | Build and read an empty Q-table. No learning yet. |
 | `02_q_learning_update.py` | Two Q-learning updates by hand, every quantity printed. |
-| `03_train_q_learning.py` | *(planned)* Train over episodes, compare to the Week 01 baselines. |
+| `03_train_q_learning.py` | Train over episodes, compare to the Week 01 baselines. |
 
 Run each checkpoint from the repository root:
 
 ```bash
 python examples/week-02/01_q_table_intro.py
 python examples/week-02/02_q_learning_update.py
+python examples/week-02/03_train_q_learning.py
 ```
 
 ## The One Equation
@@ -48,6 +49,19 @@ second update never sees the goal, yet `Q[2][right]` still rises, because its
 target bootstraps on `Q[3]` — this backward spread of value is the heart of
 the algorithm.
 
+Checkpoint 3 trains Q-learning for 200 episodes and ends with a comparison
+similar to:
+
+```text
+policy          avg return  success rate
+random                0.52          65%
+always right          0.97         100%
+q-learning            0.97         100%
+```
+
+The terminal state row in the learned Q-table is marked as terminal because no
+action is chosen after reaching the goal.
+
 ## Why `terminated` vs `truncated` Matters Here
 
 The update target drops the `gamma * max Q(next_state)` term only when the
@@ -58,6 +72,6 @@ agent that timeouts are dead ends.
 
 ## Limitation Note
 
-These two checkpoints hand-pick informative transitions. A real agent has to
-find them by exploring, which is why checkpoint 3 needs an exploration
-strategy before the comparison against the Week 01 baselines is fair.
+This is still a tiny deterministic world. Matching the heuristic does not mean
+Q-learning is generally better than hand-written rules; it means the agent
+found the useful rule from experience in this specific environment.
