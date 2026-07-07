@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add required reading and quiz pattern, starting with Week 01.
 - Add first visual asset batch with reviewed Week 1-3 artifacts and Week 4-10
   placeholders.
 - Add RL instructor commitment, lesson plan, and artifact generator brief.

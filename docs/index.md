@@ -25,6 +25,7 @@ Then read:
 - [Lesson Plan](lesson-plan.md)
 - [Week 01 - MDPs and Baselines](lectures/week-01.md)
 - [Lab 01 - Inspect a Tiny MDP](labs/lab-01.md)
+- [Week 01 Quiz](quizzes/week-01.md)
 - [Artifact Generator Brief](artifact-generator-brief.md)
 - [Resources](resources.md)
 

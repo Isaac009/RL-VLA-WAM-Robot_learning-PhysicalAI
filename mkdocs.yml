@@ -22,6 +22,8 @@ nav:
       - Week 01 - MDPs and Baselines: lectures/week-01.md
   - Labs:
       - Lab 01 - Inspect a Tiny MDP: labs/lab-01.md
+  - Quizzes:
+      - Week 01 - MDPs and Baselines: quizzes/week-01.md
   - Artifact Generator Brief: artifact-generator-brief.md
   - Course Assets: assets/README.md
   - WAM Research Notes: wam-research-notes.md

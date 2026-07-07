@@ -43,6 +43,7 @@ By the end of the course, learners should be able to:
 Each week follows a consistent teaching pattern:
 
 - Hook: a concrete puzzle, failure case, or robot-learning question.
+- Reading materials: required and optional sources.
 - Concept: the idea in plain language.
 - Math core: the minimal equation or objective.
 - Code lens: the exact implementation pattern.
@@ -51,6 +52,7 @@ Each week follows a consistent teaching pattern:
 - Metric: what is measured and why.
 - Failure mode: the most likely thing to debug.
 - Robotics bridge: how the idea appears in robot learning.
+- Quiz: self-check questions with an answer key.
 - Limitation note: what the result does not prove.
 
 See [Lesson Plan](lesson-plan.md) for the full instructor plan.

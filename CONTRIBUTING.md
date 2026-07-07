@@ -36,9 +36,11 @@ place to turn it into the next one.
 For course material:
 
 - Define the learning goal.
+- Include required and optional reading materials for each lecture.
 - Include setup instructions.
 - Prefer runnable examples.
 - Include expected output when possible.
+- Include a quiz or self-check with an answer key for each lecture.
 - State limitations.
 - Avoid broad claims from narrow experiments.
 
