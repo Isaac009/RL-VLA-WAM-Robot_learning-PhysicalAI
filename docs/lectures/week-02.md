@@ -90,6 +90,103 @@ target = r
 
 There is no future after a true terminal state.
 
+## Algorithm: Tabular Q-Learning
+
+This is the algorithm for the tabular case, where the number of states and
+actions is small enough to store a table.
+
+```text
+Create Q[state][action] and initialize every value to 0
+
+For each episode:
+    Reset the environment and observe the starting state s
+
+    While the episode is not over:
+        Choose an action a
+            often epsilon-greedy:
+                with probability epsilon: choose a random action
+                otherwise: choose argmax_a Q[s][a]
+
+        Take action a in the environment
+        Observe reward r, next state s', terminated, truncated
+
+        If terminated:
+            target = r
+        Else:
+            target = r + gamma * max_a' Q[s'][a']
+
+        td_error = target - Q[s][a]
+        Q[s][a] = Q[s][a] + alpha * td_error
+
+        Move to the next state:
+            s = s'
+
+        If terminated or truncated:
+            stop this episode
+```
+
+Read it slowly. There are only four moving parts:
+
+1. **A table** stores the agent's current guesses.
+2. **A behavior rule** chooses actions, usually with exploration.
+3. **A target** says what the current value should move toward.
+4. **An update** nudges one table cell toward that target.
+
+The algorithm does not update the whole table at once. Each transition updates
+one entry:
+
+```text
+the entry for the state you were in and the action you took
+```
+
+That is why repeated experience matters. The value of the goal first appears
+near the goal, then spreads backward through bootstrapping.
+
+## Algorithm Walkthrough in LineWorld
+
+Suppose the agent starts near the goal:
+
+```text
+state 3, action right -> state 4, reward +1.00, terminated=True
+```
+
+Because the next state is terminal:
+
+```text
+target = reward = 1.00
+```
+
+With `alpha = 0.5`, the update is:
+
+```text
+Q[3][right] <- 0.00 + 0.5 * (1.00 - 0.00)
+             = 0.50
+```
+
+Now one step farther back:
+
+```text
+state 2, action right -> state 3, reward -0.01, terminated=False
+```
+
+This state is not terminal, so the update uses the best known future value:
+
+```text
+target = -0.01 + 0.9 * max Q[3]
+       = -0.01 + 0.9 * 0.50
+       = 0.44
+```
+
+Then:
+
+```text
+Q[2][right] <- 0.00 + 0.5 * (0.44 - 0.00)
+             = 0.22
+```
+
+This is the first important "aha": even though the immediate reward was
+negative, the value increased because the future looked good.
+
 ## Code Lens
 
 Run:

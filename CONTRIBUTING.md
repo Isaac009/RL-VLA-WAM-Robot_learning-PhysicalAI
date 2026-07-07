@@ -37,6 +37,8 @@ For course material:
 
 - Define the learning goal.
 - Include required and optional reading materials for each lecture.
+- Write any introduced algorithm directly in the lecture with pseudocode and
+  explanation; do not rely on external links alone.
 - Include setup instructions.
 - Prefer runnable examples.
 - Include expected output when possible.

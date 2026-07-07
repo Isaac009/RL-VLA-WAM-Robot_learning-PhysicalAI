@@ -11,6 +11,7 @@ week is dense enough to be useful but small enough to complete.
 - One visual artifact per lesson.
 - One reading list per lecture.
 - One quiz per lecture.
+- One explicit algorithm block per algorithm lecture.
 - One limitation note per result.
 - No algorithm without an environment.
 - No robot-learning claim without a metric.
@@ -39,6 +40,7 @@ Each lecture page should contain:
 - **Reading materials**: required and optional sources with a reason for each.
 - **Concept**: intuition.
 - **Math core**: minimal formalism.
+- **Algorithm**: pseudocode written in the lecture, not only linked externally.
 - **Code lens**: where the math appears in code.
 - **Common failure modes**: debugging guidance.
 - **Robotics bridge**: how the idea appears in robot learning.
@@ -92,6 +94,7 @@ A lesson is ready to publish when:
 - The baseline is clear.
 - The visual artifact has a generation brief.
 - The lecture has required readings.
+- Any algorithm introduced in the lecture is written down and explained there.
 - The quiz has an answer key.
 - The limitation note is honest.
 - The lesson fits into the course arc.
