@@ -11,6 +11,7 @@ Each RL lesson should give learners four things:
 - **A clean concept**: the idea in plain language.
 - **The mathematical core**: the minimum equation or objective that matters.
 - **The algorithm**: the procedure written in the lecture itself.
+- **A simple visual**: a diagram, table, or sketch that reduces mental load.
 - **The code translation**: the exact implementation pattern.
 - **The experiment habit**: baseline, metric, result, and limitation.
 
@@ -28,6 +29,7 @@ are building, why it matters, and how to check whether it works.
 6. Connect classical RL to robot learning only after the foundations are solid.
 7. Use diagrams, animations, and small stories to keep hard ideas memorable.
 8. Never rely on external links as the only place an algorithm is explained.
+9. Put simple visuals close to the explanation they support.
 
 ## Lesson Rhythm
 
@@ -66,6 +68,7 @@ Each completed week should include:
 - Lab in `docs/labs/`.
 - Runnable code or notebook.
 - Algorithm pseudocode and explanation for every introduced algorithm.
+- Simple inline visual aids where they clarify the idea.
 - Expected output.
 - One conceptual diagram or animation spec.
 - Resource links with a reason for each.

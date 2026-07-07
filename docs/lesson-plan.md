@@ -9,6 +9,7 @@ week is dense enough to be useful but small enough to complete.
 - One runnable artifact per lesson.
 - One baseline per lab.
 - One visual artifact per lesson.
+- Simple inline visuals near the concept they explain.
 - One reading list per lecture.
 - One quiz per lecture.
 - One explicit algorithm block per algorithm lecture.
@@ -41,6 +42,8 @@ Each lecture page should contain:
 - **Concept**: intuition.
 - **Math core**: minimal formalism.
 - **Algorithm**: pseudocode written in the lecture, not only linked externally.
+- **Simple visuals**: compact diagrams, tables, or flow sketches placed near
+  the explanation.
 - **Code lens**: where the math appears in code.
 - **Common failure modes**: debugging guidance.
 - **Robotics bridge**: how the idea appears in robot learning.
@@ -93,6 +96,8 @@ A lesson is ready to publish when:
 - The expected output is documented.
 - The baseline is clear.
 - The visual artifact has a generation brief.
+- The lecture includes at least one simple inline visual when it helps explain
+  the concept.
 - The lecture has required readings.
 - Any algorithm introduced in the lecture is written down and explained there.
 - The quiz has an answer key.

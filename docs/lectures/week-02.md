@@ -62,6 +62,25 @@ Q[0][right] = 0.00
 
 The agent has no reason to prefer left or right yet.
 
+### Simple Visual: Empty Table
+
+```text
+             action
+state        left      right
+-----        ----      -----
+0            0.00      0.00
+1            0.00      0.00
+2            0.00      0.00
+3            0.00      0.00
+4            0.00      0.00
+```
+
+Think of each cell as one question:
+
+```text
+"If I am in this state and take this action, how much return do I expect?"
+```
+
 ## Math Core
 
 The update is:
@@ -89,6 +108,22 @@ target = r
 ```
 
 There is no future after a true terminal state.
+
+### Simple Visual: One Cell Moves
+
+```text
+before update
+Q[3][right] = 0.00
+
+target from transition
+state 3 --right--> goal, reward +1.00
+target = 1.00
+
+after update with alpha = 0.5
+Q[3][right] = 0.50
+```
+
+The table does not magically fill itself in. One transition moves one cell.
 
 ## Algorithm: Tabular Q-Learning
 
@@ -186,6 +221,23 @@ Q[2][right] <- 0.00 + 0.5 * (0.44 - 0.00)
 
 This is the first important "aha": even though the immediate reward was
 negative, the value increased because the future looked good.
+
+### Simple Visual: Value Spreads Backward
+
+```text
+start:          A   .   .   .   G
+states:         0   1   2   3   4
+
+after update 1:
+Q[3][right] = 0.50       value touches the goal neighbor
+
+after update 2:
+Q[2][right] = 0.22       value starts moving backward
+
+eventually:
+Q[0][right], Q[1][right], Q[2][right], Q[3][right]
+all learn that "right" points toward future reward
+```
 
 ## Code Lens
 

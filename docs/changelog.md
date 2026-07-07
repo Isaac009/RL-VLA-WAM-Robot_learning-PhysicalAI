@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add simple inline visuals to Week 02 and require visual aids near concepts.
 - Require in-lecture algorithm writeups and add explicit Q-learning pseudocode.
 - Add Week 02 tabular Q-learning lecture, lab, quiz, and runnable examples.
 - Add required reading and quiz pattern, starting with Week 01.
