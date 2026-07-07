@@ -21,10 +21,11 @@ Every step should produce a runnable artifact and a measurable comparison.
 
 ## Step 1: Understand the MDP
 
-Run:
+Run the Week 01 checkpoints:
 
 ```bash
-python getting_started.py
+python examples/week-01/01_random_policy.py
+python examples/week-01/02_baseline_policy.py
 ```
 
 Then read:

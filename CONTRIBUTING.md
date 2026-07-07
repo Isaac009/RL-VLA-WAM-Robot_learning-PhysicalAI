@@ -5,6 +5,23 @@ Thank you for helping improve the RL-VLA-WAM robot learning course.
 This repository values educational clarity, runnable artifacts, and careful
 claims. Contributions should help learners understand and reproduce ideas.
 
+## Repository Layout
+
+- **Docs explain.** Lectures and the teaching narrative live in
+  `docs/lectures/`.
+- **Labs instruct.** Learner-facing exercises live in `docs/labs/`.
+- **Examples run.** Runnable code lives in `examples/week-NN/`, one numbered
+  file per checkpoint (`01_...py`, `02_...py`), each runnable on its own.
+  Shared code for a week (such as its environment) lives beside the
+  checkpoints in that week's folder.
+- **`src/` is for reusable library code only**, and only once real repetition
+  across weeks makes it necessary. While the course is still teaching
+  concepts, prefer `examples/`.
+
+Numbered checkpoint files exist so learners can run each stage independently
+and the lesson history stays visible — avoid editing an earlier checkpoint in
+place to turn it into the next one.
+
 ## Contribution Types
 
 - Course notes.

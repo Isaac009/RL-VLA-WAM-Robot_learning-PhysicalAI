@@ -12,10 +12,11 @@ state, then repeat.
 
 ## Setup
 
-This lab uses only the Python standard library.
+This lab uses only the Python standard library. The environment lives in
+`examples/week-01/env.py`; the rollout script is the first checkpoint:
 
 ```bash
-python getting_started.py
+python examples/week-01/01_random_policy.py
 ```
 
 ## Tasks
@@ -51,5 +52,11 @@ Add a simple heuristic policy:
 Always move right.
 ```
 
-Compare its episode return to the random policy. This prepares the next lab,
-where we add tabular Q-learning.
+Compare its episode return to the random policy. Write your own version first;
+then check it against the second checkpoint:
+
+```bash
+python examples/week-01/02_baseline_policy.py
+```
+
+This prepares the next lab, where we add tabular Q-learning.

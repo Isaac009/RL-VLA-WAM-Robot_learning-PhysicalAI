@@ -27,7 +27,8 @@ be inspectable.
 
 ## Mini Example
 
-In `getting_started.py`, the state is the agent position in a 1D world. The
+In `examples/week-01/01_random_policy.py`, the state is the agent position in
+a 1D world (the environment itself lives in `examples/week-01/env.py`). The
 actions are left and right. The reward is `-0.01` for each non-goal move and
 `+1.0` for reaching the goal.
 

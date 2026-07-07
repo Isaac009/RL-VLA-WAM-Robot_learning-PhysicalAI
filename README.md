@@ -9,14 +9,15 @@ measurable comparison against a baseline.
 
 ## Start Here
 
-The first learning artifact is a dependency-free mini-course starter
+The first learning artifact is a dependency-free random-policy rollout
 (requires Python 3.10+):
 
 ```bash
 python getting_started.py
 ```
 
-This runs a tiny 1D environment so the core reinforcement learning loop is
+This is a shortcut for [`examples/week-01/01_random_policy.py`](examples/week-01/01_random_policy.py).
+It runs a tiny 1D environment so the core reinforcement learning loop is
 visible before adding Gymnasium, PyTorch, robot simulators, VLA models, or
 World Action Models.
 
@@ -26,6 +27,14 @@ Then read:
 - [Week 01 - MDPs and Baselines](docs/lectures/week-01.md)
 - [Lab 01 - Inspect a Tiny MDP](docs/labs/lab-01.md)
 - [`rl_mini_course.md`](rl_mini_course.md) — the short contributor roadmap.
+
+## Repository Layout
+
+- [`docs/`](docs/) explains — lectures, labs, syllabus, and the course site.
+- [`examples/`](examples/) runs — one folder per week, one file per
+  checkpoint, each independently runnable.
+- A `src/` package for reusable library code will appear only when real
+  repetition across weeks makes it necessary.
 
 ## Approach
 

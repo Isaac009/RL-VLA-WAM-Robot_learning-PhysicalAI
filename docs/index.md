@@ -12,8 +12,11 @@ a runnable artifact, a baseline, and a measurable comparison.
 Run the first tiny environment:
 
 ```bash
-python getting_started.py
+python examples/week-01/01_random_policy.py
 ```
+
+(`python getting_started.py` at the repository root is a shortcut for the
+same script.)
 
 Then read:
 
