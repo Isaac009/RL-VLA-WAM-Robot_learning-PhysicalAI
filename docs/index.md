@@ -26,6 +26,9 @@ Then read:
 - [Week 01 - MDPs and Baselines](lectures/week-01.md)
 - [Lab 01 - Inspect a Tiny MDP](labs/lab-01.md)
 - [Week 01 Quiz](quizzes/week-01.md)
+- [Week 02 - Tabular Q-Learning](lectures/week-02.md)
+- [Lab 02 - Inspect a Q-Table](labs/lab-02.md)
+- [Week 02 Quiz](quizzes/week-02.md)
 - [Artifact Generator Brief](artifact-generator-brief.md)
 - [Resources](resources.md)
 
