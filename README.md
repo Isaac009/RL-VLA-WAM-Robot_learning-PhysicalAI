@@ -17,3 +17,29 @@ visible before adding Gymnasium, PyTorch, robot simulators, VLA models, or
 World Action Models.
 
 See [`rl_mini_course.md`](rl_mini_course.md) for the step-by-step course plan.
+
+## Course Website
+
+The community course site lives in [`docs/`](docs/) and is configured with
+MkDocs Material.
+
+Install the docs dependencies:
+
+```bash
+python -m pip install -r requirements-docs.txt
+```
+
+Run the site locally:
+
+```bash
+python -m mkdocs serve
+```
+
+Build the site:
+
+```bash
+python -m mkdocs build --strict
+```
+
+The GitHub Pages workflow is defined in
+[`.github/workflows/deploy-docs.yml`](.github/workflows/deploy-docs.yml).

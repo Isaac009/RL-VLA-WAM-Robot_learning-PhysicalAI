@@ -1,0 +1,37 @@
+site_name: RL-VLA-WAM Robot Learning Course
+site_description: A community course from classical reinforcement learning to robot learning, VLA policies, and World Action Models.
+site_url: https://isaac009.github.io/RL-VLA-WAM-Robot_learning-PhysicalAI/
+repo_url: https://github.com/Isaac009/RL-VLA-WAM-Robot_learning-PhysicalAI
+repo_name: Isaac009/RL-VLA-WAM-Robot_learning-PhysicalAI
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.suggest
+
+nav:
+  - Home: index.md
+  - Syllabus: syllabus.md
+  - Lectures:
+      - Week 01 - MDPs and Baselines: lectures/week-01.md
+  - Labs:
+      - Lab 01 - Inspect a Tiny MDP: labs/lab-01.md
+  - WAM Research Notes: wam-research-notes.md
+  - Resources: resources.md
+  - Contribute: contribute.md
+  - Changelog: changelog.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
