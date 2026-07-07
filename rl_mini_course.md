@@ -36,16 +36,12 @@ Then read:
 
 ## Roadmap
 
-1. MDPs, rollouts, rewards, and baselines.
-2. Tabular Q-learning.
-3. Deep Q-learning.
-4. Policy gradients and actor-critic methods.
-5. PPO, SAC, and continuous control.
-6. Robot simulation and manipulation benchmarks.
-7. Imitation learning and robot datasets.
-8. Vision-language-action policies.
-9. World Action Models.
-10. Reproducible final projects.
+The canonical week-by-week plan lives in the
+[syllabus](docs/syllabus.md); this file intentionally does not duplicate it.
+In one line: MDPs and baselines → tabular and deep Q-learning → policy
+gradients, PPO, and SAC → robot simulation and imitation learning →
+vision-language-action policies → World Action Models → a reproducible final
+project.
 
 ## Community Direction
 

@@ -67,6 +67,10 @@ class LineWorld:
 
         reached_goal = self.position == self.goal
         timed_out = self.steps >= self.max_steps
+        # A single `done` flag conflates two different endings: reaching the
+        # goal (termination) and running out of steps (truncation). Gymnasium
+        # separates these into `terminated` and `truncated` because the
+        # distinction changes value bootstrapping; we split them in Step 2.
         done = reached_goal or timed_out
         reward = 1.0 if reached_goal else -0.01
 
