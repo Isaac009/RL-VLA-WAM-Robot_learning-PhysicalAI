@@ -23,9 +23,14 @@ def make_q_table(n_states: int, n_actions: int) -> list[list[float]]:
     return [[0.0] * n_actions for _ in range(n_states)]
 
 
-def print_q_table(q: list[list[float]]) -> None:
+def print_q_table(q: list[list[float]], terminal_state: int | None = None) -> None:
     for state, row in enumerate(q):
         print(f"State {state}:")
+        if state == terminal_state:
+            print("  terminal state (no action chosen after goal)")
+            print()
+            continue
+
         for action, value in enumerate(row):
             print(f"  {ACTION_NAMES[action]:<5} -> {value:.2f}")
         print()
@@ -38,10 +43,12 @@ def main() -> None:
     print(f"World: {env.render()}  (goal at state {env.goal})")
     print(f"Q-table: {env.size} states x {len(ACTION_NAMES)} actions, "
           "initialized to zero\n")
-    print_q_table(q)
+    print_q_table(q, terminal_state=env.goal)
 
-    print("Every entry is 0.00: the agent believes nothing yet. A greedy")
-    print("policy over this table has no reason to prefer right over left.")
+    print("Every non-terminal entry is 0.00: the agent believes nothing yet.")
+    print("The terminal row keeps the table shape honest, but the policy")
+    print("does not choose an action after the goal has been reached.")
+    print("A greedy policy over this table has no reason to prefer right over left.")
     print()
     print("Before checkpoint 2, predict by hand: after learning, which entry")
     print(f"should be largest? (Hint: from state {env.goal - 1}, one action")

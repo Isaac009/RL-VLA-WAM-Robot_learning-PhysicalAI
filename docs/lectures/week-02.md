@@ -1,6 +1,13 @@
 # Week 02 - Tabular Q-Learning
 
-## Objectives
+## Why This Matters
+
+Week 01 showed that a hand-written rule can solve LineWorld. Week 02 asks a
+more useful question: can an agent discover that rule from interaction data?
+Tabular Q-learning is the smallest place where rewards, future value,
+exploration, and a measurable learned policy all meet.
+
+## Learning Objectives
 
 By the end of this week, learners should be able to:
 
@@ -33,7 +40,7 @@ Optional:
 Reading target: after reading, you should be able to say what `Q(s, a)` means
 and why the update uses reward plus estimated future value.
 
-## Core Idea
+## Concept
 
 Week 01 used a hand-written rule:
 
@@ -72,16 +79,19 @@ state        left      right
 1            0.00      0.00
 2            0.00      0.00
 3            0.00      0.00
-4            0.00      0.00
+4            terminal state: no action chosen after goal
 ```
 
-Think of each cell as one question:
+State 4 is still listed because the table has one row per state. It is not a
+decision point after the episode terminates.
+
+Think of each non-terminal cell as one question:
 
 ```text
 "If I am in this state and take this action, how much return do I expect?"
 ```
 
-## Math Core
+## Equation
 
 The update is:
 
@@ -263,7 +273,7 @@ Open the [Week 02 Q-table heatmap](../assets/animations/week2_q_table.html).
 It shows value estimates spreading backward through the table as rightward
 actions become useful.
 
-## What the Two Checkpoints Teach
+## What the Three Checkpoints Teach
 
 Checkpoint 1:
 
@@ -327,6 +337,22 @@ always right          0.97         100%
 q-learning            0.97         100%
 ```
 
+## Metric
+
+Week 02 keeps the Week 01 metrics so the comparison is disciplined:
+
+- **Average return**: the mean total reward per episode.
+- **Success rate**: the percentage of episodes that reach the goal.
+
+Checkpoint 3 evaluates the greedy policy learned from the Q-table, not the
+exploratory epsilon-greedy behavior used during training.
+
+## Baseline
+
+The random policy is the no-knowledge baseline. The always-right heuristic is
+the hand-written ceiling for this fixed LineWorld. Q-learning is successful here
+only if it can discover the same right-moving behavior from transitions.
+
 This is the Week 02 result:
 
 ```text
@@ -349,7 +375,7 @@ experience.
 - Evaluating only the training episodes, where exploration noise is still
   present, instead of evaluating the learned greedy policy.
 
-## Bridge to Robotics
+## Robotics Bridge
 
 Most robot tasks cannot use a small table because states and actions are too
 large or continuous. But the idea survives:
@@ -362,6 +388,15 @@ DQN later replaces the table with a neural network. Actor-critic methods later
 replace or augment action-value tables with learned value functions. The table
 is small, but the habit is foundational: inspect the value estimate, not just
 the reward curve.
+
+## Resources
+
+- [Lab 02 - Inspect a Q-Table](../labs/lab-02.md): the hand-calculation and
+  checkpoint workflow.
+- [Week 02 examples](https://github.com/Isaac009/RL-VLA-WAM-Robot_learning-PhysicalAI/tree/main/examples/week-02): runnable Q-table
+  checkpoints and expected output.
+- [Week 02 Q-table heatmap](../assets/animations/week2_q_table.html): visual
+  intuition for value spreading backward.
 
 ## Quiz
 

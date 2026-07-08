@@ -19,6 +19,7 @@ nav:
   - Course:
       - Syllabus: syllabus.md
       - Lesson Plan: lesson-plan.md
+      - Course Assessment: course_assessment.md
       - RL Instructor Commitment: instructor-rl.md
   - Weeks:
       - Week 01 - MDPs and Baselines:

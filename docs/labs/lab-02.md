@@ -20,29 +20,33 @@ python examples/week-02/03_train_q_learning.py
 
 1. Run checkpoint 1.
 2. Identify how many states and actions the table has.
-3. Explain why all entries begin at `0.00`.
-4. Predict which table entry should become largest after learning.
-5. Run checkpoint 2.
-6. Write down the values of `alpha` and `gamma`.
-7. Recompute the first update by hand.
-8. Recompute the second update by hand.
-9. Explain why `Q[2][right]` increases even though the immediate reward is
-   `-0.01`.
-10. Run checkpoint 3.
-11. Record the learned Q-table.
-12. Compare random, always-right, and Q-learning by average return and success
+3. Explain why the goal row is marked as terminal.
+4. Explain why all non-terminal entries begin at `0.00`.
+5. Predict which table entry should become largest after learning.
+6. Run checkpoint 2.
+7. Write down the values of `alpha` and `gamma`.
+8. Recompute the first update by hand.
+9. Recompute the second update by hand.
+10. Explain why `Q[2][right]` increases even though the immediate reward is
+    `-0.01`.
+11. Run checkpoint 3.
+12. Record the learned Q-table.
+13. Compare random, always-right, and Q-learning by average return and success
     rate.
-13. Explain why matching the always-right baseline is a success here, but not a
+14. Explain why matching the always-right baseline is a success here, but not a
     broad claim about all environments.
 
-## Expected Observation
+## Expected Output
 
-Checkpoint 1 prints an empty table:
+Checkpoint 1 prints an empty table and marks the goal row as terminal:
 
 ```text
 State 0:
   left  -> 0.00
   right -> 0.00
+
+State 4:
+  terminal state (no action chosen after goal)
 ```
 
 Checkpoint 2 ends with:
@@ -61,7 +65,7 @@ always right          0.97         100%
 q-learning            0.97         100%
 ```
 
-## Baseline Connection
+## Baseline
 
 Week 01 showed that the hand-written "always right" policy gets the best score
 in LineWorld. Week 02 is not allowed to encode that rule directly. Instead, it
@@ -95,7 +99,7 @@ hand-written heuristic.
   epsilon-greedy behavior?
 - What does Q-learning discover that the always-right heuristic already knew?
 
-## Extension
+## Extension Challenge
 
 Change `ALPHA` in `examples/week-02/02_q_learning_update.py` from `0.5` to
 `1.0`.

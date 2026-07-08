@@ -58,6 +58,9 @@ Q(s, a) <- Q(s, a) + alpha * (target - Q(s, a))
 16. The trained Q-learning policy matches the always-right heuristic in
     LineWorld. What exactly can we claim, and what should we not claim?
 
+17. Why does the printed Q-table still include a row for the terminal goal
+    state if no action is chosen there?
+
 ??? success "Answer Key"
     1. It stores an estimate of the return expected after taking an action in
        a state and then acting well afterwards.
@@ -106,3 +109,7 @@ Q(s, a) <- Q(s, a) + alpha * (target - Q(s, a))
         We should not claim that Q-learning is generally better than
         hand-written rules or that it will scale directly to complex robot
         tasks.
+
+    17. The table has one row per state, so the terminal state is part of the
+        table shape. It is marked terminal because the policy should not choose
+        another action after the goal ends the episode.

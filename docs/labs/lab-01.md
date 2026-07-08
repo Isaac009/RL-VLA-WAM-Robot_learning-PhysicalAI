@@ -19,32 +19,74 @@ This lab uses only the Python standard library. The environment lives in
 python examples/week-01/01_random_policy.py
 ```
 
+For the baseline comparison, run:
+
+```bash
+python examples/week-01/02_baseline_policy.py
+```
+
 ## Tasks
 
-1. Run the script once.
+1. Run checkpoint 1 once.
 2. Identify the initial state.
 3. Record the sequence of actions.
 4. Record the sequence of rewards.
 5. Explain why the episode ended.
 6. Change the random seed and compare the rollout.
 7. Change `max_steps` and explain the effect.
+8. Run checkpoint 2.
+9. Compare the random policy with the always-right heuristic.
 
-## Expected Observation
+## Expected Output
 
-With the default seed, the random policy does not reach the goal before timeout.
-The episode return is negative because the agent collects the step penalty until
-the episode ends.
+With the default seed, checkpoint 1 prints a random rollout that does not reach
+the goal before timeout. The episode return is negative because the agent
+collects the step penalty until the episode ends:
 
-## Questions to Answer
+```text
+Episode return: -0.20
+```
+
+Checkpoint 2 prints the first comparison table:
+
+```text
+policy          avg return  success rate
+random                0.52          65%
+always right          0.97         100%
+```
+
+## Baseline
+
+The random policy is the baseline. It chooses actions without task knowledge.
+The always-right policy is a heuristic comparison that encodes knowledge of
+this specific environment.
+
+A learned method in this LineWorld should beat random behavior. Matching the
+always-right heuristic is excellent here, but only because the goal location is
+fixed and simple.
+
+## Metric
+
+Use two metrics:
+
+- **Average return**: the mean total reward per episode.
+- **Success rate**: the percentage of episodes that reach the goal.
+
+Both are needed. Success rate says whether the goal was reached; average return
+also penalizes wandering.
+
+## Reflection Questions
 
 - What is the state representation?
 - What is the action space?
 - What is the reward function?
 - Is the transition deterministic or stochastic?
-- What is the baseline policy?
-- What would success look like?
+- Why can the seed-7 rollout return `-0.20` while the random policy's average
+  return over 100 episodes is positive?
+- Why is `0.97` the maximum possible return in this environment?
+- What would success look like if the goal moved each episode?
 
-## Extension
+## Extension Challenge
 
 Add a simple heuristic policy:
 
@@ -52,36 +94,18 @@ Add a simple heuristic policy:
 Always move right.
 ```
 
-Compare its episode return to the random policy. Write your own version first;
-then check it against the second checkpoint:
+Write your own version first; then check it against the second checkpoint:
 
 ```bash
 python examples/week-01/02_baseline_policy.py
 ```
 
-This prepares the next lab, where we add tabular Q-learning.
+For an extra check, set `max_steps=5` in `examples/week-01/env.py`, rerun the
+comparison, and explain which metric changes first.
 
-## Reading the Results (Lesson 1.3)
+## Limitation Note
 
-Run the comparison and learn to read the numbers:
-
-```bash
-python examples/week-01/02_baseline_policy.py
-```
-
-Tasks:
-
-1. Record the average return and success rate for both policies.
-2. The seed-7 rollout in checkpoint 1 returned `-0.20`, but the random
-   policy's average return over 100 episodes is positive. Explain the
-   difference.
-3. Explain why `0.97` is the maximum possible return in this environment.
-4. Predict what happens to each policy's metrics with `max_steps=5`, then
-   change it in `env.py` and check your prediction.
-5. Describe a policy that would score 100% success rate but a much lower
-   average return than "always right." What does that say about relying on
-   success rate alone?
-
-Limitation note: both metrics are averages over one fixed environment. They
-say nothing about how either policy would do if the goal moved — which is
-exactly the weakness Week 02 starts to address.
+Both metrics are averages over one fixed environment. They say nothing about
+how either policy would do if the goal moved, if actions were noisy, or if the
+state were a camera image. Week 02 starts addressing that weakness by learning
+action values from experience.

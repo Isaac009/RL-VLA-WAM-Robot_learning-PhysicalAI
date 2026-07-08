@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Align Week 01 lecture and lab with the course discipline markers.
+- Clarify terminal-state rows in the Week 02 Q-table materials.
+- Add the course assessment page to the site navigation.
 - Add Week 02 full Q-learning training checkpoint and baseline comparison.
 - Add simple inline visuals to Week 02 and require visual aids near concepts.
 - Require in-lecture algorithm writeups and add explicit Q-learning pseudocode.

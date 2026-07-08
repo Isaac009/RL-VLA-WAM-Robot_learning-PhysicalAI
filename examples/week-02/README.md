@@ -29,12 +29,15 @@ target   = reward + gamma * max_a' Q(next_state, a')   # future term dropped
 
 ## Expected Output
 
-Checkpoint 1 prints the empty table in this shape:
+Checkpoint 1 prints the empty table in this shape and marks the terminal row:
 
 ```text
 State 0:
   left  -> 0.00
   right -> 0.00
+
+State 4:
+  terminal state (no action chosen after goal)
 ```
 
 Checkpoint 2 narrates two updates and ends with:
