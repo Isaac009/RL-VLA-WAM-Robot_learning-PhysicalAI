@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Point Sutton and Barto reading links to the reliable official PDF.
 - Align Week 01 lecture and lab with the course discipline markers.
 - Clarify terminal-state rows in the Week 02 Q-table materials.
 - Add the course assessment page to the site navigation.

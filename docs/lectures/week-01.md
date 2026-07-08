@@ -25,7 +25,7 @@ Required:
 
 - **Sutton and Barto, Reinforcement Learning: An Introduction**, Chapter 3:
   focus on the agent-environment interface, goals, rewards, returns, and MDPs.
-  Use the official book page: [incompleteideas.net/book/the-book-2nd.html](https://incompleteideas.net/book/the-book-2nd.html).
+  Use the official PDF: [http://incompleteideas.net/book/RLbook2020.pdf](http://incompleteideas.net/book/RLbook2020.pdf).
 - **Gymnasium Basic Usage**: read the sections on the agent-environment loop,
   `reset()`, `step()`, rewards, `terminated`, and `truncated`:
   [gymnasium.farama.org/introduction/basic_usage](https://gymnasium.farama.org/introduction/basic_usage/).

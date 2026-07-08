@@ -9,7 +9,7 @@ Links were reviewed when this page was created in July 2026.
 
 | Resource | Why it is here |
 | --- | --- |
-| [Sutton and Barto, Reinforcement Learning: An Introduction](https://incompleteideas.net/book/the-book-2nd.html) | The standard foundation for MDPs, dynamic programming, temporal-difference learning, and policy gradients. |
+| [Sutton and Barto, Reinforcement Learning: An Introduction](http://incompleteideas.net/book/RLbook2020.pdf) | The standard foundation for MDPs, dynamic programming, temporal-difference learning, and policy gradients. |
 | [David Silver's RL Course](https://www.davidsilver.uk/teaching/) | Clear lecture-style explanations of classical RL concepts. |
 | [OpenAI Spinning Up](https://spinningup.openai.com/en/latest/) | Practical explanations of deep RL algorithms and implementation choices. |
 | [Hugging Face Deep RL Course](https://huggingface.co/learn/deep-rl-course/unit0/introduction) | Free hands-on course with approachable notebooks and community exercises. |

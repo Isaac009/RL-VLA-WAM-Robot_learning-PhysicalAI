@@ -23,7 +23,7 @@ Required:
 
 - **Sutton and Barto, Reinforcement Learning: An Introduction**, Chapter 6:
   focus on temporal-difference learning and Q-learning. Use the official book
-  page: [incompleteideas.net/book/the-book-2nd.html](https://incompleteideas.net/book/the-book-2nd.html).
+  PDF: [http://incompleteideas.net/book/RLbook2020.pdf](http://incompleteideas.net/book/RLbook2020.pdf).
 - **OpenAI Spinning Up, Key Concepts in RL**: read value functions, the optimal
   Q-function, and Bellman equations:
   [spinningup.openai.com/en/latest/spinningup/rl_intro.html](https://spinningup.openai.com/en/latest/spinningup/rl_intro.html).
