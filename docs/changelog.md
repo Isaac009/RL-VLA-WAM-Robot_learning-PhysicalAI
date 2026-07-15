@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add Week 03 Bellman-error and DQN mechanics lecture, lab, quiz, and runnable examples.
 - Point Sutton and Barto reading links to the reliable official PDF.
 - Align Week 01 lecture and lab with the course discipline markers.
 - Clarify terminal-state rows in the Week 02 Q-table materials.

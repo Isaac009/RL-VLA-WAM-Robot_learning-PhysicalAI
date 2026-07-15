@@ -30,6 +30,10 @@ nav:
           - Lecture: lectures/week-02.md
           - Lab 02 - Inspect a Q-Table: labs/lab-02.md
           - Quiz: quizzes/week-02.md
+      - Week 03 - Bellman Error and DQN:
+          - Lecture: lectures/week-03.md
+          - Lab 03 - Bellman Error as a Loss: labs/lab-03.md
+          - Quiz: quizzes/week-03.md
   - Reference:
       - Resources: resources.md
       - WAM Research Notes: wam-research-notes.md
