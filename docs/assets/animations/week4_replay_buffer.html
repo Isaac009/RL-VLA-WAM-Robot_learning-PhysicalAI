@@ -3,72 +3,527 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Replay Buffer Animation v0 Placeholder</title>
+<title>Replay Buffer and Delayed Target Visualizer</title>
 <style>
   :root {
-    --action: #f97316;
-    --error: #dc2626;
+    --state: #2563eb;
+    --action: #c2410c;
+    --reward: #15803d;
+    --value: #7e22ce;
+    --error: #b91c1c;
     --baseline: #4b5563;
-    --muted: #f3f4f6;
-    --ink: #1f2937;
+    --policy: #0f766e;
+    --surface: #ffffff;
+    --page: #f8fafc;
+    --muted: #eef2f7;
+    --border: #cbd5e1;
+    --ink: #172033;
+  }
+
+  * {
+    box-sizing: border-box;
   }
 
   body {
     margin: 0;
     min-height: 100vh;
-    display: grid;
-    place-items: center;
-    padding: 24px;
+    padding: 24px 16px;
+    background: var(--page);
     color: var(--ink);
-    background: #ffffff;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif;
   }
 
   main {
-    width: min(640px, 100%);
-    text-align: center;
+    width: min(960px, 100%);
+    margin: 0 auto;
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+
+  header {
+    margin-bottom: 20px;
   }
 
   h1 {
-    color: var(--baseline);
-    font-size: clamp(22px, 4vw, 30px);
+    margin: 0 0 6px;
+    color: var(--ink);
+    font-size: 26px;
+    line-height: 1.2;
   }
 
+  .subtitle,
   .note {
-    color: var(--error);
-    font-weight: 800;
+    margin: 0;
+    color: var(--baseline);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .status {
+    min-height: 52px;
+    margin: 18px 0;
+    padding: 12px 14px;
+    border-left: 4px solid var(--policy);
+    background: var(--muted);
+    color: var(--baseline);
+    line-height: 1.45;
+  }
+
+  .workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+    gap: 16px;
+  }
+
+  .panel {
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+
+  .panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 17px;
+  }
+
+  .counter {
+    color: var(--baseline);
+    font-size: 13px;
+    font-weight: 700;
   }
 
   .buffer {
-    margin: 24px auto;
-    padding: 24px;
-    border: 3px solid var(--baseline);
-    border-radius: 8px;
-    background: var(--muted);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(72px, 1fr));
+    gap: 8px;
+  }
+
+  .slot {
+    min-height: 68px;
+    padding: 7px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
     color: var(--baseline);
-    font-size: clamp(16px, 4vw, 24px);
+    font-family: "Courier New", Courier, monospace;
+    font-size: 12px;
+    line-height: 1.35;
+    transition: border-color 160ms ease, background 160ms ease;
+  }
+
+  .slot strong {
+    display: block;
+    margin-bottom: 3px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 11px;
+  }
+
+  .slot.inserted {
+    border-color: var(--action);
+    background: #fff7ed;
+  }
+
+  .slot.sampled {
+    border-color: var(--reward);
+    background: #f0fdf4;
+  }
+
+  .network {
+    display: grid;
+    gap: 12px;
+  }
+
+  .network-block {
+    padding: 12px;
+    border-left: 4px solid var(--value);
+    background: var(--muted);
+  }
+
+  .network-block.target {
+    border-left-color: var(--policy);
+  }
+
+  .network-title {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 7px;
+    font-size: 14px;
     font-weight: 800;
   }
 
-  .transition {
-    color: var(--action);
+  .weights {
+    color: var(--baseline);
+    font-family: "Courier New", Courier, monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 18px;
+  }
+
+  button {
+    min-height: 40px;
+    padding: 9px 13px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background: var(--policy);
+    color: white;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  button.secondary {
+    border-color: var(--border);
+    background: var(--surface);
+    color: var(--ink);
+  }
+
+  button.reset {
+    border-color: #fecaca;
+    background: #fef2f2;
+    color: var(--error);
+  }
+
+  button:hover,
+  button:focus-visible {
+    outline: 3px solid #99f6e4;
+    outline-offset: 2px;
+  }
+
+  .note {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 760px) {
+    main {
+      padding: 18px;
+    }
+
+    .workspace {
+      grid-template-columns: 1fr;
+    }
+
+    .buffer {
+      grid-template-columns: repeat(2, minmax(92px, 1fr));
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    * {
-      animation: none !important;
-      transition: none !important;
+    .slot {
+      transition: none;
     }
   }
 </style>
 </head>
 <body>
 <main aria-labelledby="title">
-  <h1 id="title">Replay Buffer v0 Placeholder</h1>
-  <p class="note">TODO: Animate transitions entering a buffer and random batches being sampled.</p>
-  <div class="buffer" aria-label="Replay buffer placeholder">
-    Buffer stores <span class="transition">(s, a, r, s')</span>
+  <header>
+    <h1 id="title">Replay Buffer and Delayed Target</h1>
+    <p class="subtitle">
+      Stored transitions are sampled into a minibatch. The online linear
+      Q-model learns from Bellman targets supplied by delayed weights.
+    </p>
+  </header>
+
+  <div class="status" id="status" aria-live="polite">
+    Ready. The buffer is empty and both parameter sets are identical.
   </div>
+
+  <div class="workspace">
+    <section class="panel" aria-labelledby="buffer-title">
+      <div class="panel-heading">
+        <h2 id="buffer-title">Circular replay buffer</h2>
+        <span class="counter" id="buffer-count">0 / 8 stored</span>
+      </div>
+      <div class="buffer" id="buffer" aria-label="Eight replay buffer slots"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="network-title">
+      <div class="panel-heading">
+        <h2 id="network-title">Q parameters</h2>
+        <span class="counter" id="sync-count">sync in 4 updates</span>
+      </div>
+      <div class="network">
+        <div class="network-block">
+          <div class="network-title">
+            <span>Online parameters</span>
+            <span>updated</span>
+          </div>
+          <div class="weights" id="online-weights"></div>
+        </div>
+        <div class="network-block target">
+          <div class="network-title">
+            <span>Delayed parameters</span>
+            <span id="target-state">frozen</span>
+          </div>
+          <div class="weights" id="target-weights"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="controls" aria-label="Visualizer controls">
+    <button id="collect">Collect transition</button>
+    <button id="sample" class="secondary">Sample batch and update</button>
+    <button id="sync" class="secondary">Synchronize target</button>
+    <button id="auto" class="secondary">Auto run</button>
+    <button id="reset" class="reset">Reset</button>
+  </div>
+
+  <p class="note">
+    This visual computes a real minibatch semi-gradient update for a linear
+    model. It demonstrates mechanics, not neural DQN performance or convergence.
+  </p>
 </main>
+
+<script>
+  const CAPACITY = 8;
+  const BATCH_SIZE = 3;
+  const GAMMA = 0.9;
+  const LEARNING_RATE = 0.35;
+  const SYNC_INTERVAL = 4;
+  const MAX_EPISODE_STEPS = 20;
+
+  let replay = [];
+  let writePosition = 0;
+  let currentState = 0;
+  let episodeSteps = 0;
+  let optimizerUpdates = 0;
+  let updatesSinceSync = 0;
+  let autoTimer = null;
+  let onlineWeights = [[0, 0], [0, 0]];
+  let targetWeights = [[0, 0], [0, 0]];
+
+  const bufferElement = document.getElementById("buffer");
+  const statusElement = document.getElementById("status");
+  const bufferCountElement = document.getElementById("buffer-count");
+  const syncCountElement = document.getElementById("sync-count");
+  const targetStateElement = document.getElementById("target-state");
+  const onlineElement = document.getElementById("online-weights");
+  const targetElement = document.getElementById("target-weights");
+
+  function features(state) {
+    return [1, state / 4];
+  }
+
+  function qValue(weights, state, action) {
+    const x = features(state);
+    return weights[action][0] * x[0] + weights[action][1] * x[1];
+  }
+
+  function maxQ(weights, state) {
+    return Math.max(qValue(weights, state, 0), qValue(weights, state, 1));
+  }
+
+  function formatWeights(weights) {
+    return [
+      `left:  [${weights[0][0].toFixed(3)}, ${weights[0][1].toFixed(3)}]`,
+      `right: [${weights[1][0].toFixed(3)}, ${weights[1][1].toFixed(3)}]`
+    ].join("<br>");
+  }
+
+  function renderParameters() {
+    onlineElement.innerHTML = formatWeights(onlineWeights);
+    targetElement.innerHTML = formatWeights(targetWeights);
+    syncCountElement.textContent =
+      `sync in ${SYNC_INTERVAL - updatesSinceSync} updates`;
+  }
+
+  function renderBuffer(highlighted = []) {
+    bufferElement.innerHTML = "";
+    for (let index = 0; index < CAPACITY; index++) {
+      const slot = document.createElement("div");
+      slot.className = "slot";
+      if (highlighted.includes(index)) slot.classList.add("sampled");
+
+      const transition = replay[index];
+      if (transition) {
+        slot.innerHTML =
+          `<strong>slot ${index}</strong>` +
+          `s=${transition.state}, a=${transition.actionName}<br>` +
+          `r=${transition.reward.toFixed(2)}, s'=${transition.nextState}<br>` +
+          `term=${transition.terminated}, trunc=${transition.truncated}`;
+      } else {
+        slot.innerHTML = `<strong>slot ${index}</strong>empty`;
+      }
+      bufferElement.appendChild(slot);
+    }
+    bufferCountElement.textContent = `${replay.length} / ${CAPACITY} stored`;
+  }
+
+  function collectTransition() {
+    const action = Math.random() < 0.65 ? 1 : 0;
+    const actionName = action === 1 ? "R" : "L";
+    const nextState = Math.min(4, Math.max(0, currentState + (action ? 1 : -1)));
+    episodeSteps += 1;
+    const terminated = nextState === 4;
+    const truncated = episodeSteps >= MAX_EPISODE_STEPS && !terminated;
+    const reward = terminated ? 1 : -0.01;
+    const transition = {
+      state: currentState,
+      action,
+      actionName,
+      reward,
+      nextState,
+      terminated,
+      truncated
+    };
+
+    if (replay.length < CAPACITY) {
+      replay.push(transition);
+    } else {
+      replay[writePosition] = transition;
+    }
+
+    const insertedAt = writePosition;
+    writePosition = (writePosition + 1) % CAPACITY;
+    currentState = terminated || truncated ? 0 : nextState;
+    if (terminated || truncated) episodeSteps = 0;
+
+    renderBuffer();
+    const slot = bufferElement.children[insertedAt];
+    if (slot) slot.classList.add("inserted");
+    statusElement.textContent =
+      `Stored slot ${insertedAt}: s=${transition.state}, a=${actionName}, ` +
+      `r=${reward.toFixed(2)}, s'=${nextState}, ` +
+      `terminated=${terminated}, truncated=${truncated}.`;
+  }
+
+  function sampleIndices() {
+    const indices = [];
+    while (indices.length < BATCH_SIZE) {
+      const index = Math.floor(Math.random() * replay.length);
+      if (!indices.includes(index)) indices.push(index);
+    }
+    return indices;
+  }
+
+  function sampleAndUpdate() {
+    if (replay.length < BATCH_SIZE) {
+      statusElement.textContent =
+        `Collect at least ${BATCH_SIZE} transitions before sampling.`;
+      return;
+    }
+
+    const indices = sampleIndices();
+    const gradients = [[0, 0], [0, 0]];
+    let totalLoss = 0;
+
+    for (const index of indices) {
+      const transition = replay[index];
+      const target = transition.terminated
+        ? transition.reward
+        : transition.reward + GAMMA * maxQ(targetWeights, transition.nextState);
+      const prediction = qValue(
+        onlineWeights,
+        transition.state,
+        transition.action
+      );
+      const error = target - prediction;
+      const x = features(transition.state);
+      totalLoss += 0.5 * error * error;
+      gradients[transition.action][0] += error * x[0] / BATCH_SIZE;
+      gradients[transition.action][1] += error * x[1] / BATCH_SIZE;
+    }
+
+    for (const action of [0, 1]) {
+      for (const parameter of [0, 1]) {
+        onlineWeights[action][parameter] +=
+          LEARNING_RATE * gradients[action][parameter];
+      }
+    }
+
+    optimizerUpdates += 1;
+    updatesSinceSync += 1;
+    let syncMessage = "Delayed parameters stayed frozen.";
+    targetStateElement.textContent = "frozen";
+
+    if (updatesSinceSync >= SYNC_INTERVAL) {
+      targetWeights = onlineWeights.map((row) => [...row]);
+      updatesSinceSync = 0;
+      syncMessage = "Delayed parameters synchronized.";
+      targetStateElement.textContent = "just synced";
+    }
+
+    renderBuffer(indices);
+    renderParameters();
+    statusElement.textContent =
+      `Update ${optimizerUpdates}: sampled slots [${indices.join(", ")}], ` +
+      `mean half-squared loss ${(totalLoss / BATCH_SIZE).toFixed(4)}. ` +
+      syncMessage;
+  }
+
+  function synchronize() {
+    targetWeights = onlineWeights.map((row) => [...row]);
+    updatesSinceSync = 0;
+    targetStateElement.textContent = "just synced";
+    renderParameters();
+    statusElement.textContent =
+      "Copied online parameters into delayed target parameters.";
+  }
+
+  function reset() {
+    if (autoTimer) window.clearInterval(autoTimer);
+    autoTimer = null;
+    document.getElementById("auto").textContent = "Auto run";
+    replay = [];
+    writePosition = 0;
+    currentState = 0;
+    episodeSteps = 0;
+    optimizerUpdates = 0;
+    updatesSinceSync = 0;
+    onlineWeights = [[0, 0], [0, 0]];
+    targetWeights = [[0, 0], [0, 0]];
+    targetStateElement.textContent = "frozen";
+    renderBuffer();
+    renderParameters();
+    statusElement.textContent =
+      "Reset complete. The buffer is empty and both parameter sets match.";
+  }
+
+  document.getElementById("collect").addEventListener("click", collectTransition);
+  document.getElementById("sample").addEventListener("click", sampleAndUpdate);
+  document.getElementById("sync").addEventListener("click", synchronize);
+  document.getElementById("reset").addEventListener("click", reset);
+  document.getElementById("auto").addEventListener("click", () => {
+    const button = document.getElementById("auto");
+    if (autoTimer) {
+      window.clearInterval(autoTimer);
+      autoTimer = null;
+      button.textContent = "Auto run";
+      return;
+    }
+    button.textContent = "Pause";
+    autoTimer = window.setInterval(() => {
+      collectTransition();
+      if (replay.length >= BATCH_SIZE) sampleAndUpdate();
+    }, 900);
+  });
+
+  renderBuffer();
+  renderParameters();
+</script>
 </body>
 </html>

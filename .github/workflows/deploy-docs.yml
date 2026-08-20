@@ -33,6 +33,13 @@ jobs:
       - name: Install docs dependencies
         run: python -m pip install -r requirements-docs.txt
 
+      - name: Smoke test course examples
+        run: python -m unittest discover -s tests -v
+
+      - name: Check external links
+        if: github.event_name == 'schedule'
+        run: python scripts/check_external_links.py
+
       - name: Build site
         run: python -m mkdocs build --strict
 

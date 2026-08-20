@@ -28,7 +28,8 @@ def report_case(
 ) -> None:
     target = bellman_target(reward, next_values, terminated)
     td_error = target - prediction
-    loss = td_error * td_error
+    squared_error = td_error * td_error
+    loss = 0.5 * squared_error
 
     print(name)
     print(f"  prediction Q_theta(s, a): {prediction:.2f}")
@@ -41,7 +42,8 @@ def report_case(
         print("  target = reward + gamma * max(next_values)")
     print(f"  target: {target:.2f}")
     print(f"  td_error = target - prediction = {td_error:.2f}")
-    print(f"  squared Bellman error: {loss:.4f}")
+    print(f"  squared Bellman error: {squared_error:.4f}")
+    print(f"  half-squared optimization loss: {loss:.4f}")
     print()
 
 

@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+- Complete an evidence-based audit of all released course materials.
+- Add the controlled Week 04 replay and delayed-target lecture, lab, quiz,
+  interactive visualizer, slide deck, and runnable diagnostics.
+- Report the Week 04 LineWorld result as a null comparison: all four linear-Q
+  variants solve the task under the stated evaluation protocol.
+- Correct Week 03's Bellman-loss convention, linear-approximator description,
+  tie handling, numerical walkthrough, examples, visual, and slides.
+- Correct the Week 02 Q-table visual's terminal row and update values.
+- Add MathJax rendering for lecture equations.
+- Add smoke tests for every released learner entrypoint, a scheduled external
+  link checker, and stricter deployment checks.
+- Replace the stale numeric course score with a release-status assessment that
+  separates Weeks 01-04 from planned Weeks 05-10.
+- Record released/planned status in the README, site home, and syllabus.
 - Add Week 03 Bellman-error and DQN mechanics lecture, lab, quiz, and runnable examples.
 - Point Sutton and Barto reading links to the reliable official PDF.
 - Align Week 01 lecture and lab with the course discipline markers.

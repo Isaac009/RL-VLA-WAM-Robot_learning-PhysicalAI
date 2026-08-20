@@ -34,6 +34,10 @@ nav:
           - Lecture: lectures/week-03.md
           - Lab 03 - Bellman Error as a Loss: labs/lab-03.md
           - Quiz: quizzes/week-03.md
+      - Week 04 - Replay and Target Networks:
+          - Lecture: lectures/week-04.md
+          - Lab 04 - Replay Buffer and Target Network Ablation: labs/lab-04.md
+          - Quiz: quizzes/week-04.md
   - Reference:
       - Resources: resources.md
       - WAM Research Notes: wam-research-notes.md
@@ -50,6 +54,12 @@ markdown_extensions:
   - md_in_html
   - pymdownx.details
   - pymdownx.highlight
+  - pymdownx.arithmatex:
+      generic: true
   - pymdownx.superfences
   - pymdownx.tasklist:
       custom_checkbox: true
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js

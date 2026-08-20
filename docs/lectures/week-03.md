@@ -1,5 +1,7 @@
 # Week 03 - Bellman Error and DQN
 
+[Download Lecture Slide Deck (PDF)](week-03-slides.pdf){ .md-button .md-button--primary }
+
 ## Why This Matters
 
 A Q-table works when the state-action space is tiny. Robot learning does not
@@ -110,14 +112,19 @@ The prediction is:
 prediction = Q_theta(state, action)
 ```
 
-The Bellman error and loss are:
+The Bellman error, squared diagnostic, and optimization loss are:
 
 ```text
 td_error = y - Q_theta(state, action)
-loss(theta) = (td_error)^2
+squared_error = (td_error)^2
+loss(theta) = 0.5 * (td_error)^2
 ```
 
-Gradient descent changes `theta` so the prediction moves toward the target.
+The factor `0.5` makes the gradient especially easy to read: its derivative
+cancels the factor of two from the square. Gradient descent then changes
+`theta` so the prediction moves toward the target. Reporting the unsmoothed
+`squared_error` is still useful for hand arithmetic; the two quantities differ
+only by a constant scale.
 The target is usually computed with a delayed copy of the model, written here
 as `Q_target`, so the target does not move every time the online network moves.
 
@@ -128,7 +135,7 @@ reward + discounted next value  ->  target y
 current model prediction        ->  Q_theta(s, a)
 
 difference                      ->  td_error
-squared difference              ->  Bellman loss
+half the squared difference     ->  optimization loss
 ```
 
 A smaller Bellman loss is useful only if the targets are meaningful and the
@@ -158,7 +165,7 @@ For each environment step:
             target = reward + gamma * max_a' Q_target(next_state, a')
 
         prediction = Q_theta(state, action)
-        loss = mean squared error between target and prediction
+        loss = mean(0.5 * (target - prediction)^2)
 
     Update Q_theta by gradient descent on the loss
 
@@ -166,11 +173,13 @@ For each environment step:
         Copy Q_theta into Q_target
 ```
 
-DQN has three stabilizers compared with naive online neural Q-learning:
+DQN combines three important operational components:
 
-1. **Replay buffer**: breaks up highly correlated recent experience.
-2. **Target network**: slows down the target the model is chasing.
-3. **Epsilon-greedy exploration**: keeps collecting diverse transitions.
+1. **Replay buffer**: samples across stored history, reducing the dominance of
+   adjacent recent transitions.
+2. **Target network**: usually slows how quickly the target values move.
+3. **Epsilon-greedy exploration**: gives non-greedy actions a nonzero sampling
+   probability; it does not guarantee adequate coverage.
 
 This week uses a smaller dependency-free version to isolate the loss. Week 04
 makes replay and target-network stability the main experiment.
@@ -208,7 +217,8 @@ The Bellman error is:
 
 ```text
 td_error = 0.44 - 0.10 = 0.34
-loss = 0.34^2 = 0.1156
+squared_error = 0.34^2 = 0.1156
+loss = 0.5 * 0.1156 = 0.0578
 ```
 
 Training nudges the model so `Q_theta(2, right)` moves closer to `0.44`.
@@ -226,6 +236,9 @@ python examples/week-03/03_train_linear_q.py
 Checkpoint 1 computes the Bellman target and loss. Checkpoint 2 performs one
 parameter update. Checkpoint 3 repeats the idea over many LineWorld episodes
 with epsilon-greedy exploration and a periodically synced target copy.
+
+As in Week 02, exact value ties break toward `left`. The untrained model
+therefore does not receive the useful `always right` behavior for free.
 
 The checkpoint 3 model is intentionally tiny:
 
@@ -305,6 +318,12 @@ the data distribution, the baseline, and the metric.
 For continuous robot actions, later methods such as actor-critic, DDPG, TD3,
 SAC, and PPO become more natural than vanilla DQN. The Bellman-error discipline
 still matters.
+
+## Limitation Note
+
+The runnable model is a two-feature linear approximator in deterministic
+LineWorld. It demonstrates Bellman-target and gradient mechanics, not neural
+DQN stability, high-dimensional generalization, or robot-control performance.
 
 ## Resources
 

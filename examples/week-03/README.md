@@ -22,7 +22,8 @@ python examples/week-03/03_train_linear_q.py
 
 ```text
 target = reward + gamma * max_a' Q_target(next_state, a')
-loss   = (target - Q_theta(state, action))^2
+squared_error = (target - Q_theta(state, action))^2
+loss          = 0.5 * squared_error
 ```
 
 If the transition reaches a true terminal state, the future-value term is
@@ -40,6 +41,7 @@ Checkpoint 1 computes a non-terminal Bellman error:
 target: 0.44
 td_error = target - prediction = 0.34
 squared Bellman error: 0.1156
+half-squared optimization loss: 0.0578
 ```
 
 Checkpoint 2 performs one gradient step and reduces the local error:
@@ -49,10 +51,12 @@ Before update
   Q_theta(2, right): 0.10
   Bellman target: 0.44
   squared Bellman error: 0.1156
+  half-squared optimization loss: 0.0578
 
 After update
   Q_theta(2, right): 0.31
   squared Bellman error: 0.0163
+  half-squared optimization loss: 0.0081
 ```
 
 Checkpoint 3 trains over many episodes and evaluates policies:
@@ -63,6 +67,10 @@ random                0.52          65%
 always right          0.97         100%
 linear-q              0.97         100%
 ```
+
+Exact value ties break toward `left`. The untrained model therefore does not
+start with the winning always-right behavior; exploration and Bellman updates
+must change its action preference.
 
 ## Why This Is Not Full DQN Yet
 

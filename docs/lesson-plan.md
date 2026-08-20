@@ -23,8 +23,8 @@ week is dense enough to be useful but small enough to complete.
 | --- | --- | --- | --- | --- |
 | 1 | MDPs and baselines | What exactly is the agent interacting with? | Tiny 1D environment and random rollout | [MDP loop diagram](assets/images/week1_mdp_loop.svg) |
 | 2 | Tabular Q-learning | How can experience become a table of action values? | Q-table learner for LineWorld | [Q-table heatmap](assets/animations/week2_q_table.html) |
-| 3 | Bellman error and DQN | How do we replace a table with a neural network? | PyTorch DQN on a simple control task | [Bellman target animation](assets/animations/week3_bellman_target.html) |
-| 4 | Replay and target networks | Why does naive deep RL become unstable? | Replay buffer and target network ablation | [Replay buffer placeholder](assets/animations/week4_replay_buffer.html) |
+| 3 | Bellman error and DQN mechanics | How does Bellman error train a function approximator? | Dependency-free linear Q approximator | [Bellman target animation](assets/animations/week3_bellman_target.html) |
+| 4 | Replay and target networks | What do replay and delayed targets change? | Controlled linear-Q mechanism comparison | [Replay and target visualizer](assets/animations/week4_replay_buffer.html) |
 | 5 | Policy gradients | How can a policy improve actions directly? | REINFORCE or actor-only baseline | [Policy gradient placeholder](assets/animations/week5_policy_gradient.html) |
 | 6 | Actor-critic and advantage | How do we reduce policy-gradient noise? | Simple actor-critic agent | [Actor/critic placeholder](assets/images/week6_actor_critic.svg) |
 | 7 | PPO and SAC | What do practical continuous-control agents optimize? | PPO or SAC baseline with logs | [PPO clipping placeholder](assets/images/week7_ppo_clip.svg) |
@@ -47,6 +47,7 @@ Each lecture page should contain:
 - **Code lens**: where the math appears in code.
 - **Common failure modes**: debugging guidance.
 - **Robotics bridge**: how the idea appears in robot learning.
+- **Limitation note**: what the result does not establish.
 - **Resources**: two to four curated links.
 - **Quiz link**: a self-check page with answer key.
 
@@ -83,7 +84,7 @@ Use small challenges:
 - "Beat the random agent."
 - "Make the Q-table explain itself."
 - "Find the reward bug."
-- "Freeze the target network and watch training calm down."
+- "Freeze the target network and measure how the targets move."
 - "Design a robot reward that does not cheat."
 
 The fun should come from seeing ideas become working systems.

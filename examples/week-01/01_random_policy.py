@@ -32,7 +32,8 @@ def run_random_episode(env: LineWorld, seed: int | None = None) -> float:
             f"action={ACTION_NAMES[action]:>5}  "
             f"state={result.state}  "
             f"reward={result.reward:>5.2f}  "
-            f"done={result.done}  "
+            f"terminated={result.terminated}  "
+            f"truncated={result.truncated}  "
             f"world={env.render()}"
         )
 

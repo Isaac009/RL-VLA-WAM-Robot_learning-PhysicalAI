@@ -3,3 +3,14 @@ site/
 .venv/
 __pycache__/
 *.pyc
+
+# LaTeX build artifacts
+*.log
+*.aux
+*.nav
+*.snm
+*.toc
+*.out
+*.xdv
+*.fls
+*.fdb_latexmk

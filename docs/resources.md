@@ -3,7 +3,9 @@
 This page is curated for usefulness, not completeness. A resource should help a
 learner understand, reproduce, or evaluate robot learning systems.
 
-Links were reviewed when this page was created in July 2026.
+Links were last reviewed on 21 August 2026. A scheduled repository check flags
+HTTP 404 and 410 responses, but inclusion still depends on human review for
+relevance, quality, and appropriate claim scope.
 
 ## Foundations
 

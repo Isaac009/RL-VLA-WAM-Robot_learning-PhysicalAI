@@ -25,18 +25,18 @@ By the end of the course, learners should be able to:
 
 ## Weekly Plan
 
-| Week | Topic | Main artifact |
-| --- | --- | --- |
-| 1 | MDPs, rollouts, random baselines | Tiny dependency-free environment |
-| 2 | Tabular Q-learning | Q-table learner and baseline comparison |
-| 3 | Deep Q-learning | PyTorch DQN on a simple control task |
-| 4 | Policy gradients and actor-critic | Continuous-control actor-critic agent |
-| 5 | PPO and SAC in practice | CleanRL or Stable-Baselines3 experiment |
-| 6 | Robot simulation | Reaching or manipulation benchmark |
-| 7 | Imitation learning and datasets | Dataset inspection and behavior cloning |
-| 8 | VLA policies | Action representation and fine-tuning notes |
-| 9 | World Action Models | World-model supervision and control interface |
-| 10 | Final project | Reproducible robot-learning mini-project |
+| Week | Topic | Main artifact | Status |
+| --- | --- | --- | --- |
+| 1 | MDPs, rollouts, random baselines | Tiny dependency-free environment | Released |
+| 2 | Tabular Q-learning | Q-table learner and baseline comparison | Released |
+| 3 | Bellman error and DQN mechanics | Linear Q approximator and Bellman-loss training | Released |
+| 4 | Replay and target networks | Controlled replay and delayed-target diagnostics | Released |
+| 5 | Policy gradients | REINFORCE or actor-only baseline | Planned |
+| 6 | Actor-critic and advantage | Simple actor-critic agent | Planned |
+| 7 | PPO and SAC in practice | PPO or SAC baseline with logs | Planned |
+| 8 | Robot simulation | Reaching or manipulation benchmark | Planned |
+| 9 | Imitation learning and VLAs | Dataset inspection and behavior cloning | Planned |
+| 10 | WAMs and final project | Final project with baseline and limitation note | Planned |
 
 ## Lesson Format
 

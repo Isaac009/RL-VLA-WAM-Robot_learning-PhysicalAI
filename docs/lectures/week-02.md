@@ -1,5 +1,7 @@
 # Week 02 - Tabular Q-Learning
 
+[Download Lecture Slide Deck (PDF)](week-02-slides.pdf){ .md-button .md-button--primary }
+
 ## Why This Matters
 
 Week 01 showed that a hand-written rule can solve LineWorld. Week 02 asks a
@@ -388,6 +390,12 @@ DQN later replaces the table with a neural network. Actor-critic methods later
 replace or augment action-value tables with learned value functions. The table
 is small, but the habit is foundational: inspect the value estimate, not just
 the reward curve.
+
+## Limitation Note
+
+The Q-table succeeds because every LineWorld state-action pair can be stored
+and revisited cheaply. This result does not show that tabular Q-learning scales
+to continuous, image-based, partially observed, or robotic tasks.
 
 ## Resources
 

@@ -7,6 +7,12 @@ Action Models.
 The course is built around a simple rule: **every concept should become a
 runnable artifact, a baseline, and a measurable comparison.**
 
+## Current Availability
+
+Weeks 01-04 currently include lectures, labs, quizzes, runnable checkpoints,
+and reviewed visuals. Weeks 05-10 are planned but not yet released. The
+[asset tracker](assets/README.md) marks unfinished visuals explicitly.
+
 ## Your First Hour
 
 1. Clone the repository and run the first tiny environment:
@@ -24,7 +30,7 @@ runnable artifact, a baseline, and a measurable comparison.**
    [Lab 01](labs/lab-01.md), then check yourself with the
    [quiz](quizzes/week-01.md).
 
-Each week in the **Weeks** menu follows that same rhythm: lecture, lab, quiz,
+Each released week in the **Weeks** menu follows that same rhythm: lecture, lab, quiz,
 with runnable checkpoints in the repository's `examples/` folder.
 
 ## What Makes This Course Different

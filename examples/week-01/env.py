@@ -22,7 +22,13 @@ ACTION_NAMES = {
 class StepResult:
     state: int
     reward: float
-    done: bool
+    terminated: bool
+    truncated: bool
+
+    @property
+    def done(self) -> bool:
+        """Compatibility convenience; learning code should inspect both flags."""
+        return self.terminated or self.truncated
 
 
 class LineWorld:
@@ -64,16 +70,16 @@ class LineWorld:
         elif action == RIGHT:
             self.position = min(self.goal, self.position + 1)
 
-        reached_goal = self.position == self.goal
-        timed_out = self.steps >= self.max_steps
-        # A single `done` flag conflates two different endings: reaching the
-        # goal (termination) and running out of steps (truncation). Gymnasium
-        # separates these into `terminated` and `truncated` because the
-        # distinction changes value bootstrapping; we split them in Week 02.
-        done = reached_goal or timed_out
-        reward = 1.0 if reached_goal else -0.01
+        terminated = self.position == self.goal
+        truncated = self.steps >= self.max_steps and not terminated
+        reward = 1.0 if terminated else -0.01
 
-        return StepResult(state=self.position, reward=reward, done=done)
+        return StepResult(
+            state=self.position,
+            reward=reward,
+            terminated=terminated,
+            truncated=truncated,
+        )
 
     def render(self) -> str:
         cells = ["."] * self.size

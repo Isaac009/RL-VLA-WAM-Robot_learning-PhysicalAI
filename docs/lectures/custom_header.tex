@@ -1,0 +1,71 @@
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\definecolor{islteal}{RGB}{43,133,147}
+\definecolor{islred}{RGB}{203,76,65}
+\definecolor{isldark}{RGB}{52,61,67}
+\definecolor{islnavy}{RGB}{31,55,95}
+\definecolor{islmuted}{RGB}{92,101,108}
+\definecolor{isllight}{RGB}{236,241,243}
+\definecolor{islgold}{RGB}{184,119,20}
+\definecolor{islgreen}{RGB}{44,145,91}
+
+\newcommand{\deckdate}{2026.08.10}
+\newcommand{\labname}{DGIST Intelligent Systems and Learning Laboratory}
+
+\setbeamersize{text margin left=0.65cm,text margin right=0.65cm}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamercolor{frametitle}{fg=black,bg=white}
+\setbeamercolor{footer}{fg=white,bg=isldark}
+\setbeamerfont{frametitle}{series=\bfseries,size=\Large}
+\setbeamerfont{normal text}{size=\small}
+
+\setbeamertemplate{frametitle}{%
+  \nointerlineskip%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1.48cm,dp=0cm]{frametitle}
+    \vskip0.62cm%
+    \hspace*{0.74cm}\insertframetitle\par%
+    \vskip0.04cm%
+    \hspace*{0.74cm}{\color{islteal}\rule{0.68\paperwidth}{5.1pt}}%
+    {\color{islred}\rule{0.20\paperwidth}{5.1pt}}%
+  \end{beamercolorbox}%
+}
+
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.34cm,dp=0.11cm]{footer}
+    \hspace*{0.65cm}{\scriptsize\deckdate}%
+    \hfill{\scriptsize\labname}\hfill%
+    {\scriptsize\insertframenumber}\hspace*{0.65cm}%
+  \end{beamercolorbox}%
+}
+
+\newcommand{\bottomrulebar}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[islteal] (current page.south west) rectangle ++(0.43\paperwidth,0.11cm);
+    \fill[isldark] ([xshift=0.43\paperwidth]current page.south west)
+      rectangle ++(0.34\paperwidth,0.11cm);
+    \fill[islred] ([xshift=0.77\paperwidth]current page.south west)
+      rectangle ++(0.23\paperwidth,0.11cm);
+  \end{tikzpicture}%
+}
+
+\newcommand{\templatelogos}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=north east]
+      at ([xshift=-0.52cm,yshift=-0.34cm]current page.north east)
+%       {\includegraphics[width=4.25cm]{../2026-07-27/meeting_materials/assets/dgist_isl_logo_strip.png}};
+  \end{tikzpicture}%
+}
+
+\newcommand{\sectionlabel}[1]{%
+  {\small\bfseries\color{islteal}#1}\par\vspace{0.22cm}%
+}

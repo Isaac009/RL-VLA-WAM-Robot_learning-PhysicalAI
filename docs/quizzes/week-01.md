@@ -22,10 +22,10 @@ Consider this partial rollout:
 
 ```text
 state=0  world=A . . . G
-action=right  state=1  reward=-0.01  done=False
-action=right  state=2  reward=-0.01  done=False
-action=right  state=3  reward=-0.01  done=False
-action=right  state=4  reward= 1.00  done=True
+action=right  state=1  reward=-0.01  terminated=False  truncated=False
+action=right  state=2  reward=-0.01  terminated=False  truncated=False
+action=right  state=3  reward=-0.01  terminated=False  truncated=False
+action=right  state=4  reward= 1.00  terminated=True   truncated=False
 ```
 
 6. Did the agent reach the goal or time out?
@@ -54,10 +54,13 @@ always right          0.97         100%
 ## Short Coding Check
 
 12. In the environment loop, what three things must happen repeatedly until
-    `done=True`?
+    `terminated` or `truncated` is true?
 
 13. If you changed the non-goal reward from `-0.01` to `0.00`, what behavior
     would the reward function stop encouraging?
+
+14. What is the difference between `terminated=True` and `truncated=True` in
+    this environment?
 
 ??? success "Answer Key"
     1. The state is the agent's integer position on the line.
@@ -92,3 +95,7 @@ always right          0.97         100%
 
     13. It would stop encouraging shorter paths. A slow path and a direct path
         could receive the same terminal reward if both reach the goal.
+
+    14. `terminated=True` means the agent reached the goal and the task ended.
+        `truncated=True` means the step limit stopped the observed rollout even
+        though the underlying task state was not terminal.

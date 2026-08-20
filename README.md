@@ -7,6 +7,9 @@ measurable comparison against a baseline.
 
 **Course site:** https://isaac009.github.io/RL-VLA-WAM-Robot_learning-PhysicalAI/
 
+**Development status:** Weeks 01-04 are implemented. Weeks 05-10 remain on
+the published roadmap and should not yet be treated as finished lessons.
+
 ## Start Here
 
 The first learning artifact is a dependency-free random-policy rollout

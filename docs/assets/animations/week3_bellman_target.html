@@ -151,7 +151,7 @@
   <h1 id="title">Bellman Target Becomes a Loss</h1>
   <p class="subtitle">
     DQN predicts Q(s, a), builds a bootstrapped target from reward plus next-state value,
-    then minimizes the squared error between them.
+    then minimizes half the squared error between them.
   </p>
 
   <section class="stage" id="stage" aria-label="Bellman target animation">
@@ -159,7 +159,7 @@
     <div class="node bootstrap" id="bootstrap">Next value<br>gamma max Q(s', a')</div>
     <div class="node target" id="target">Target<br>y</div>
     <div class="node prediction" id="prediction">Prediction<br>Q(s, a)</div>
-    <div class="node loss" id="loss">Loss<br>(y - Q)^2</div>
+    <div class="node loss" id="loss">Loss<br>0.5 (y - Q)^2</div>
     <div class="formula">y = r + gamma max_a Q_target(s', a)</div>
   </section>
 
@@ -233,7 +233,7 @@
 
     window.setTimeout(() => {
       show(loss);
-      status.textContent = "Step 4: minimize squared Bellman error and update the Q-network.";
+      status.textContent = "Step 4: minimize half-squared Bellman loss and update the Q-network.";
     }, 3400);
 
     window.setTimeout(runSequence, 5600);

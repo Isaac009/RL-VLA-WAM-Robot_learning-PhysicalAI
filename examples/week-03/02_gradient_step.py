@@ -39,7 +39,8 @@ def main() -> None:
     x = features(state, goal)
     prediction_before = q_value(weights, state, ACTION_RIGHT, goal)
     td_error = TARGET - prediction_before
-    loss_before = td_error * td_error
+    squared_error_before = td_error * td_error
+    loss_before = 0.5 * squared_error_before
 
     print("Linear Q approximator")
     print("  Q_theta(s, a) = bias[a] + slope[a] * normalized_state")
@@ -49,9 +50,10 @@ def main() -> None:
     print(f"  Q_theta({state}, right): {prediction_before:.2f}")
     print(f"  Bellman target: {TARGET:.2f}")
     print(f"  td_error: {td_error:.2f}")
-    print(f"  squared Bellman error: {loss_before:.4f}\n")
+    print(f"  squared Bellman error: {squared_error_before:.4f}")
+    print(f"  half-squared optimization loss: {loss_before:.4f}\n")
 
-    print("Gradient step on the right-action weights")
+    print("Gradient step on 0.5 * td_error^2 for the right-action weights")
     for index, feature_value in enumerate(x):
         delta = ALPHA * td_error * feature_value
         weights[ACTION_RIGHT][index] += delta
@@ -59,11 +61,13 @@ def main() -> None:
         print(f"  {name:<11} += {delta:.3f}")
 
     prediction_after = q_value(weights, state, ACTION_RIGHT, goal)
-    loss_after = (TARGET - prediction_after) ** 2
+    squared_error_after = (TARGET - prediction_after) ** 2
+    loss_after = 0.5 * squared_error_after
 
     print("\nAfter update")
     print(f"  Q_theta({state}, right): {prediction_after:.2f}")
-    print(f"  squared Bellman error: {loss_after:.4f}")
+    print(f"  squared Bellman error: {squared_error_after:.4f}")
+    print(f"  half-squared optimization loss: {loss_after:.4f}")
     print("\nOnly the parameters for the action actually taken were updated.")
     print("Checkpoint 3 repeats this idea over many transitions.")
 

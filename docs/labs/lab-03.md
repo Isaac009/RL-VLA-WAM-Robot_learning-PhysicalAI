@@ -10,7 +10,8 @@ so the prediction moves toward the target.
 
 Use the [Bellman target animation](../assets/animations/week3_bellman_target.html)
 as the map for this lab: reward plus next-state value becomes a target; the
-prediction is compared to that target; the squared difference becomes the loss.
+prediction is compared to that target; half the squared difference becomes the
+optimization loss.
 
 ## Setup
 
@@ -34,11 +35,13 @@ python examples/week-03/03_train_linear_q.py
 7. Recompute the right-action state-slope update by hand.
 8. Explain why only the parameters for the action taken are updated.
 9. Run checkpoint 3.
-10. Record the average Bellman loss over the last 100 updates.
-11. Record the predicted action values for states 0 through 3.
-12. Compare random, always-right, and linear-q by average return and success
+10. Confirm that exact value ties break toward `left`, so the untrained model
+    does not already implement the heuristic.
+11. Record the average Bellman loss over the last 100 updates.
+12. Record the predicted action values for states 0 through 3.
+13. Compare random, always-right, and linear-q by average return and success
     rate.
-13. Explain why matching the heuristic is a useful result here but not a broad
+14. Explain why matching the heuristic is a useful result here but not a broad
     DQN claim.
 
 ## Expected Output
@@ -49,6 +52,7 @@ Checkpoint 1 includes:
 target: 0.44
 td_error = target - prediction = 0.34
 squared Bellman error: 0.1156
+half-squared optimization loss: 0.0578
 ```
 
 Checkpoint 2 reduces the local loss:
@@ -58,16 +62,18 @@ Before update
   Q_theta(2, right): 0.10
   Bellman target: 0.44
   squared Bellman error: 0.1156
+  half-squared optimization loss: 0.0578
 
 After update
   Q_theta(2, right): 0.31
   squared Bellman error: 0.0163
+  half-squared optimization loss: 0.0081
 ```
 
 Checkpoint 3 trains over many episodes and evaluates policies:
 
 ```text
-Average Bellman loss over last 100 updates: 0.0003
+Average half-squared Bellman loss over last 100 updates: 0.0002
 
 policy          avg return  success rate
 random                0.52          65%

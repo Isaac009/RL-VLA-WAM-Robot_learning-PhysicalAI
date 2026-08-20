@@ -105,6 +105,18 @@
     font-weight: 700;
   }
 
+  .terminal-cell {
+    grid-column: span 2;
+    min-height: 48px;
+    display: grid;
+    place-items: center;
+    border: 2px solid var(--reward);
+    border-radius: 8px;
+    background: #f0fdf4;
+    color: var(--reward);
+    font-weight: 700;
+  }
+
   .header,
   .row-label {
     color: var(--baseline);
@@ -198,8 +210,7 @@
     <div class="cell" id="q-3-1">0.00</div>
 
     <div class="row-label">s=4</div>
-    <div class="cell" id="q-4-0">0.00</div>
-    <div class="cell" id="q-4-1">Goal</div>
+    <div class="terminal-cell">terminal: no action selected</div>
   </section>
 
   <p class="status" id="status" aria-live="polite">Starting from an empty Q-table.</p>
@@ -227,12 +238,13 @@
   ];
 
   const updates = [
-    { state: 3, action: RIGHT, value: 1.00, agent: 3, note: "Near the goal, right earns the goal reward." },
-    { state: 2, action: RIGHT, value: 0.79, agent: 2, note: "Value backs up one step from the goal." },
-    { state: 1, action: RIGHT, value: 0.61, agent: 1, note: "The useful action becomes visible earlier." },
-    { state: 0, action: RIGHT, value: 0.45, agent: 0, note: "The start state now prefers moving right." },
-    { state: 1, action: LEFT, value: 0.32, agent: 1, note: "Left can have value, but less than right here." },
-    { state: 2, action: RIGHT, value: 0.88, agent: 2, note: "More experience sharpens the estimate." }
+    { state: 3, action: RIGHT, value: 0.50, agent: 3, note: "The first terminal update uses alpha=0.5." },
+    { state: 2, action: RIGHT, value: 0.22, agent: 2, note: "The first backup carries value one state backward." },
+    { state: 3, action: RIGHT, value: 1.00, agent: 3, note: "Repeated terminal experience moves the estimate toward 1.00." },
+    { state: 2, action: RIGHT, value: 0.89, agent: 2, note: "Repeated backups sharpen the next state." },
+    { state: 1, action: RIGHT, value: 0.79, agent: 1, note: "Useful future value reaches state 1." },
+    { state: 0, action: RIGHT, value: 0.70, agent: 0, note: "The start state now prefers moving right." },
+    { state: 1, action: LEFT, value: 0.62, agent: 1, note: "Left has value, but remains worse than right here." }
   ];
 
   const world = document.getElementById("world");

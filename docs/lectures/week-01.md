@@ -1,5 +1,7 @@
 # Week 01 - MDPs and Baselines
 
+[Download Lecture Slide Deck (PDF)](week-01-slides.pdf){ .md-button .md-button--primary }
+
 ## Why This Matters
 
 Reinforcement learning is not "reward goes up, therefore intelligence happened."
@@ -116,10 +118,10 @@ Create the environment
 Reset the environment and observe the initial state
 Set episode_return = 0
 
-While the episode is not done:
+While the rollout has neither terminated nor been truncated:
     Choose a random action
     Step the environment with that action
-    Observe next_state, reward, done
+    Observe next_state, reward, terminated, truncated
     Add reward to episode_return
     Render or print the transition
 
@@ -127,7 +129,8 @@ Report episode_return
 ```
 
 Read the algorithm as a contract: if a later learner cannot outperform this
-random baseline, we have not demonstrated learning.
+random baseline under the same evaluation protocol, we have not demonstrated
+an improvement over random behavior.
 
 ## Code Lens
 
@@ -210,7 +213,7 @@ success.
 
 1. Why does the non-goal step penalty encourage shorter paths?
 2. What would happen if the goal reward were also `-0.01`?
-3. Why is timeout termination important?
+3. Why is time-limit truncation important?
 4. What information would a robot arm reaching task need in its state?
 5. What would be a bad reward function for a robot reaching task?
 
@@ -224,10 +227,17 @@ For a robot reaching task, the same MDP questions remain:
   level skill command.
 - Reward might combine distance-to-target, task completion, collision
   penalties, and control smoothness.
-- Termination might happen on success, collision, timeout, or unsafe state.
+- Task termination might happen on success, collision, or an unsafe state;
+  an external time limit produces truncation.
 
 The algorithm matters, but the MDP usually decides whether learning is
 possible.
+
+## Limitation Note
+
+LineWorld is deterministic, fully observed, and has only five states. Its
+rollouts teach MDP bookkeeping and baseline discipline; they do not establish
+that a policy can handle noisy sensing, continuous control, or real robots.
 
 ## Resources
 

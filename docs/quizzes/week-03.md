@@ -106,8 +106,8 @@ terminated = True
     14. Replay samples older transitions so updates are less dominated by the
         newest correlated experience.
 
-    15. The target network slows down the target the online network is chasing,
-        which improves stability.
+    15. The target network slows down one source of target motion. This often
+        improves empirical stability, but does not guarantee convergence.
 
     16. The transition only observed the value prediction for taking `right` in
         that state. The update moves the parameters responsible for that

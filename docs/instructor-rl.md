@@ -6,7 +6,7 @@ the course into either shallow demos or abstract theory theater.
 
 ## Teaching Contract
 
-Each RL lesson should give learners four things:
+Each RL lesson should give learners six things:
 
 - **A clean concept**: the idea in plain language.
 - **The mathematical core**: the minimum equation or objective that matters.
@@ -72,6 +72,7 @@ Each completed week should include:
 - Expected output.
 - One conceptual diagram or animation spec.
 - Resource links with a reason for each.
+- A self-check quiz with an answer key.
 - A limitation note.
 
 ## My RL Teaching Stance

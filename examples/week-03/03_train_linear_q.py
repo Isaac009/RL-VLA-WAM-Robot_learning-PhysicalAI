@@ -49,7 +49,7 @@ def q_value(weights: list[list[float]], state: int, action: int, goal: int) -> f
 def greedy_action(weights: list[list[float]], state: int, goal: int) -> int:
     left = q_value(weights, state, 0, goal)
     right = q_value(weights, state, 1, goal)
-    return 1 if right >= left else 0
+    return 1 if right > left else 0
 
 
 def epsilon_greedy_action(
@@ -90,7 +90,7 @@ def train(seed: int = SEED) -> TrainResult:
 
             prediction = q_value(weights, state, action, env.goal)
             td_error = target - prediction
-            losses.append(td_error * td_error)
+            losses.append(0.5 * td_error * td_error)
 
             for index, feature_value in enumerate(features(state, env.goal)):
                 weights[action][index] += ALPHA * td_error * feature_value
@@ -136,7 +136,7 @@ def print_values(weights: list[list[float]]) -> None:
             continue
         left = q_value(weights, state, 0, env.goal)
         right = q_value(weights, state, 1, env.goal)
-        best = ACTION_NAMES[1 if right >= left else 0]
+        best = ACTION_NAMES[greedy_action(weights, state, env.goal)]
         print(f"state {state}: left={left:5.2f}  right={right:5.2f}  best={best}")
 
 
@@ -149,7 +149,7 @@ def main() -> None:
         f"{TRAIN_EPISODES} episodes, alpha={ALPHA}, gamma={GAMMA}, "
         f"epsilon={EPSILON}, target_sync={TARGET_SYNC_EPISODES}"
     )
-    print(f"Average Bellman loss over last 100 updates: {recent_loss:.4f}\n")
+    print(f"Average half-squared Bellman loss over last 100 updates: {recent_loss:.4f}\n")
 
     print("Predicted action values:")
     print_values(result.weights)

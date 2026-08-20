@@ -2,11 +2,11 @@
 
 Adapted from `examples/week-01/env.py` with two changes:
 
-1. `StepResult` now separates `terminated` (the agent reached the goal, so
-   there is no future to learn about) from `truncated` (we stopped the episode
-   at a step limit, but the world itself would have continued). Week 01 folded
-   both into one `done` flag. Q-learning needs the distinction: the update
-   target may only drop the future term when the state is truly terminal.
+1. `StepResult` keeps `terminated` (the agent reached the goal, so there is no
+   future to learn about) separate from `truncated` (we stopped at a step
+   limit, but the world itself would have continued). Q-learning needs the
+   distinction: the update target drops the future term only at true task
+   termination.
 2. `reset()` accepts an optional start position, so lessons can inspect a
    single transition anywhere in the world.
 
