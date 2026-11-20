@@ -30,6 +30,7 @@ Then read:
 - [Week 01 - MDPs and Baselines](docs/lectures/week-01.md)
 - [Lab 01 - Inspect a Tiny MDP](docs/labs/lab-01.md)
 - [`rl_mini_course.md`](rl_mini_course.md) — the short contributor roadmap.
+- [Case Study: Debugging π₀ + Physics Action Selection in Project Newton](docs/newton-pi0-postmortem.md) ([Interactive Explorer](docs/assets/animations/newton_pi0_postmortem.html)) — documented pipeline issues, fixes (`0/10 -> 20/25`), upstream status, and `n = 25` empirical evaluation.
 
 ## Repository Layout
 

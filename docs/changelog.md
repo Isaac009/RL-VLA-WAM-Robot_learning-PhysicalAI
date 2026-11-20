@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Add [Newton + π₀ Case Study & Post-Mortem](newton-pi0-postmortem.md) plus
+  interactive evaluation explorer (`docs/assets/animations/newton_pi0_postmortem.html`)
+  and verification media (`docs/assets/newton_pi0/`) documenting closed-loop
+  quaternion normalization fixes (`0/10 -> 20/25`), wrist occlusion, dataloader
+  deadlocks, and the null/negative end-to-end physics reranking comparison.
 - Complete an evidence-based audit of all released course materials.
 - Add the controlled Week 04 replay and delayed-target lecture, lab, quiz,
   interactive visualizer, slide deck, and runnable diagnostics.

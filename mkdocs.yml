@@ -41,6 +41,7 @@ nav:
   - Reference:
       - Resources: resources.md
       - WAM Research Notes: wam-research-notes.md
+      - Newton + π₀ Post-Mortem: newton-pi0-postmortem.md
   - Community:
       - Contribute: contribute.md
       - Artifact Generator Brief: artifact-generator-brief.md

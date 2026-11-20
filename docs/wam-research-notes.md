@@ -53,6 +53,7 @@ Fast-WAM is a useful discussion point because it asks whether WAM gains come
 from explicit test-time imagination or from video co-training during training:
 
 - [Fast-WAM project page](https://yuantianyuan01.github.io/FastWAM/)
+- [Case Study: Debugging $\pi_0$ + Physics-Based Action Selection in Project Newton](newton-pi0-postmortem.md) — empirical post-mortem of normalization, occlusion, dataloader, determinism, and negative test-time reranking results ($n=25$ unseen cube-stacking layouts).
 
 This course will use that kind of question-driven framing rather than treating
 new model families as automatic progress.

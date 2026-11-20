@@ -16,6 +16,7 @@ This directory contains the visual assets (diagrams and animations) generated fo
 | 8 | Robot Reaching MDP | SVG | *v0 placeholder* | [`images/week8_robot_mdp.svg`](images/week8_robot_mdp.svg) | Placeholder only; needs robot state/action/reward layout. |
 | 9 | VLA Flow | SVG | *v0 placeholder* | [`images/week9_vla_flow.svg`](images/week9_vla_flow.svg) | Placeholder only; needs image/language/action flow. |
 | 10 | WAM Storyboard | SVG | *v0 placeholder* | [`images/week10_wam_storyboard.svg`](images/week10_wam_storyboard.svg) | Placeholder only; needs multi-panel future prediction storyboard. |
+| Ref | Newton + π₀ Post-Mortem Explorer | HTML + Media | **reviewed** | [`animations/newton_pi0_postmortem.html`](animations/newton_pi0_postmortem.html) | Interactive explorer and empirical visual gallery for the `newton-pi0-postmortem.md` case study. |
 
 **Status Definitions:**
 - `v0 placeholder`: Draft file exists, but the teaching content is not complete.
